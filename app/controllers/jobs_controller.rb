@@ -5,9 +5,9 @@ class JobsController < ApplicationController
   end
   
   def new
-    @counter = Counter.instance
-    #@counter.delay.count
-    @counter = Delayed::Job.enqueue Paranoid.new
+    @counter = Counter.new
+    @counter.delay.count
+    #@counter = Delayed::Job.enqueue Paranoid.new
   end
   
 end
