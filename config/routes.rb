@@ -1,5 +1,6 @@
 ArsLovesGames::Application.routes.draw do
   
+  match 'jobs/new/:id' => 'jobs#new', :as => :queue
   resources :jobs
   
   # The priority is based upon order of creation:

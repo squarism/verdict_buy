@@ -16,7 +16,8 @@ class Paranoid
       f.puts @number
       sleep 0.5
     end
-    raise Exception, "Invalid Facey-Face.  Add more Disco space."
+    # exception test
+    raise Exception, "Invalid Facey-Face."
     f.close
   end
 

@@ -8,7 +8,7 @@ class Counter
   end
   
   def count
-    while (@number < 25)
+    while (@number < 5)
       @number += 1
       puts @number
       sleep 1

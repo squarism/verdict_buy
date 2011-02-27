@@ -6,3 +6,8 @@ Sync games that ars says "Verdict: Buy" to local DB.  Compares local DB to your 
 == Run
 rails s
 rake jobs:work
+or
+script/delayed_job start
+
+== Dev notes
+If you change a class in app/jobs, restart rake jobs:work.  Shouldn't need to restart rails.

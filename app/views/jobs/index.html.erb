@@ -2,14 +2,34 @@
 
 <p>
 Jobs: <%= @jobs.size %><br>
-First: <%= @jobs.first.name unless @jobs.size < 1 %><br>
 </p>
 
-<strong>States</strong><br>
+<hr>
+
+<table>
+<th>ID</th>   <th>Name</th>   <th>Attempts</th>   <th>Last Error</th>
+<% @jobs.each do |j| %>
+<tr>
+  <td><%= j.id %></td>
+  <td><%= j.name %></td>
+  <td><%= j.attempts %></td>
+  <td width="50%"><%= shorten_last_error(j.last_error) %></td>
+</tr>
+<% end %>
+</table>
+
+<hr>
+
+<br>
+
+<strong>States</strong>
 <p>
   States: <%= @job_states.size %><br>
   First: <%= @job_states.first.name unless @job_states.size < 1 %>
 </p>
 
 
-<%= link_to 'Scrape Ars', :controller => 'jobs', :action => 'new', :id => 'scrape' %>
+<%# link_to 'Scrape Ars', :controller => 'jobs', :action => 'new', :id => 'scrape' %>
+<%= link_to 'Scrape Ars', queue_url('scrape')%><br>
+<%= link_to 'Counter', queue_url('counter')%><br>
+<%= link_to 'Paranoid', queue_url('paranoid')%><br>
