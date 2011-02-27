@@ -1,3 +1,15 @@
 <h1>Job Index</h1>
 
-<%= @foo %>
+<p>
+Jobs: <%= @jobs.size %><br>
+First: <%= @jobs.first.name unless @jobs.size < 1 %><br>
+</p>
+
+<strong>States</strong><br>
+<p>
+  States: <%= @job_states.size %><br>
+  First: <%= @job_states.first.name unless @job_states.size < 1 %>
+</p>
+
+
+<%= link_to 'Scrape Ars', :controller => 'jobs', :action => 'new', :id => 'scrape' %>

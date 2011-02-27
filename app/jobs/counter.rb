@@ -8,21 +8,19 @@ class Counter
   end
   
   def count
-    if Jobstates.find_by_name("counter").nil?
-      Jobstates.create(:name => "counter", :started => Date.new, :running => true)
-      f = File.open("/tmp/wtf.txt", "w")
-      while (@number < 25)
-        @number += 1
-        puts @number
-        sleep 1
-      end
-    else
-      return
+    while (@number < 25)
+      @number += 1
+      puts @number
+      sleep 1
     end
   end
   
   def after(job)
     Jobstates.delete_all(:name => "counter")
+  end
+  
+  def display_name
+    "Counter Thing"
   end
   
 end
