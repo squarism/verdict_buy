@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  ars_review_id: 1
+  gb_title: Scott Pilgrim vs The World
+  ars_title: Scott Pilgrim
+  title: WTF edit me
+
+two:
+  id: 3
+  ars_review_id: 2
+  gb_title: Dead Space
+  ars_title: Dead Space
+  title: WTF edit me too

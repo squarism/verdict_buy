@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: Developer
+  ars_review_id: 1
+
+two:
+  title: Scott Pilgrim
+  ars_review_id: 1
+
+three:
+  title: Scott Pilgrim
+  ars_review_id: 1
+
+four:
+  title: Ars
+  ars_review_id: 1
+
+five:
+  title: Dead Space
+  ars_review_id: 2
+
+six:
+  title: Ars
+  ars_review_id: 2

@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  article_title: "A beat 'em up with poutine: Ars reviews Scott Pilgrim"
+  link: http://arstechnica.com/gaming/reviews/2010/08/a-beat-em-up-with-poutine-ars-reviews-scott-pilgrim.ars
+  date: 2010-08-11
+
+two:
+  id: 2
+  article_title: "A little pee came out: Ars reviews  the scares of Dead Space"
+  link: http://arstechnica.com/gaming/reviews/2008/10/dead-space-review.ars/4
+  date: 2008-10-14
