@@ -38,5 +38,8 @@ module ArsLovesGames
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    
+    config.autoload_paths += Dir["#{config.root}/lib/**/"] # include all subdirectories
+    config.autoload_paths += Dir["#{config.root}/app/jobs/**/"] # include all subdirectories
   end
 end
