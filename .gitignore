@@ -3,3 +3,4 @@ db/*.sqlite3
 log/*.log
 tmp/
 conf/database.yml
+app/jobs/ars_dump.yml
