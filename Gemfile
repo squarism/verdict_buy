@@ -9,6 +9,7 @@ gem 'mysql2'
 gem 'delayed_job', "2.1.4"
 gem 'nokogiri'
 gem 'typhoeus'
+gem 'giant_bomb'
 
 # Use unicorn as the web server
 # gem 'unicorn'
