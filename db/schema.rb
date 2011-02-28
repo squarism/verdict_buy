@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20110227054459) do
   create_table "ars_titles", :force => true do |t|
     t.string   "title"
     t.integer  "ars_review_id"
+    t.decimal  "percent_appears", :precision => 10, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

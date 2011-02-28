@@ -112,11 +112,22 @@ class Scraper
         
         love = Love.new #(:ars_title => review.article_title)
         review.love = love
-        p ArsReducer.new.reduce a
+        
+        # number of times a title appears from an ars article using a variety of guessing methods
+        title_percentage = ArsReducer.new.reduce a
+        
         title_array = Array.new
-        a[:titles].each do |game_title|
-          title_array << ArsTitle.new(:title => game_title)
+        title_percentage.each do |key, value|
+          title_array << ArsTitle.new(:title => key, :percent_appears => value)
         end
+        # p title_percentage
+        
+        # title_array = Array.new
+        # a[:titles].each do |game_title|
+        #   ars_title = ArsTitle.new(:title => game_title, :percent_appears => title_percentage[game_title.to_sym])
+        #   p ars_title
+        #   title_array << ars_title
+        # end
         
         review.ars_titles = title_array
         review.save!          

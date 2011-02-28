@@ -30,6 +30,7 @@ class CreateTables < ActiveRecord::Migration
     create_table :ars_titles do |t|
       t.string  :title
       t.integer :ars_review_id
+      t.decimal  :percent_appears
 
       t.timestamps
     end
