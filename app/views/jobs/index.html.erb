@@ -26,6 +26,6 @@
   First: <%= @job_states.first.name unless @job_states.size < 1 %>
 </p>
 
-<%= link_to 'Scrape Ars', queue_url('scrape')%><br>
+<%= link_to 'Scrape Ars', queue_url('scraper')%><br>
 <%= link_to 'Counter', queue_url('counter')%><br>
 <%= link_to 'Paranoid', queue_url('paranoid')%><br>

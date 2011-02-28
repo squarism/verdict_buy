@@ -2,7 +2,7 @@ class JobsController < ApplicationController
   attr_reader :valid_jobs
 
   def initialize
-    @valid_jobs = [ "counter", "paranoid", "scrape" ]
+    @valid_jobs = [ "counter", "paranoid", "scraper" ]
     super
   end
   
@@ -14,7 +14,6 @@ class JobsController < ApplicationController
   # this should be create but oh well
   def new
     job_name = params[:id]
-    # print ">>>> " + job_name.upcase
 
     if @valid_jobs.include? job_name    
       if queue_job(job_name)
@@ -47,12 +46,15 @@ class JobsController < ApplicationController
     when "paranoid"
       Delayed::Job.enqueue Paranoid.new
       return true
-    when "scrape"
-      s = Scraper.new
-      s.delay.scrape
-      # 
-      # s.parse(:verbose => false)
-      # s.write_parsed      
+    when "scraper"
+      if Jobstates.find_by_name("scraper").nil?
+        Jobstates.create(:name => "scraper", :started => Date.new, :running => true)
+        s = Scraper.new
+        s.delay.scrape
+        return true
+      else
+        return false
+      end
     else
       puts "You gave me #{job} -- I have no idea what to do with that."
     end

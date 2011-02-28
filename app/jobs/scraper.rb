@@ -120,14 +120,6 @@ class Scraper
         title_percentage.each do |key, value|
           title_array << ArsTitle.new(:title => key, :percent_appears => value)
         end
-        # p title_percentage
-        
-        # title_array = Array.new
-        # a[:titles].each do |game_title|
-        #   ars_title = ArsTitle.new(:title => game_title, :percent_appears => title_percentage[game_title.to_sym])
-        #   p ars_title
-        #   title_array << ars_title
-        # end
         
         review.ars_titles = title_array
         review.save!          
@@ -352,6 +344,10 @@ class Scraper
       end
     end
     puts "Dumped ars_parsed.yml"
+  end
+  
+  def after(job)
+    Jobstates.delete_all(:name => "scraper")
   end
     
 end
