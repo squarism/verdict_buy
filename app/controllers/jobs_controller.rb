@@ -2,7 +2,7 @@ class JobsController < ApplicationController
   attr_reader :valid_jobs
 
   def initialize
-    @valid_jobs = [ "counter", "paranoid" ]
+    @valid_jobs = [ "counter", "paranoid", "scrape" ]
     super
   end
   
@@ -47,12 +47,21 @@ class JobsController < ApplicationController
     when "paranoid"
       Delayed::Job.enqueue Paranoid.new
       return true
+    when "scrape"
+      s = Scraper.new
+      s.delay.scrape
+      # 
+      # s.parse(:verbose => false)
+      # s.write_parsed      
     else
       puts "You gave me #{job} -- I have no idea what to do with that."
     end
-    
-    
-    
+  end
+  
+  def destroy
+    job = params[:id]
+    Delayed::Job.destroy job
+    redirect_to jobs_path
   end
   
 end

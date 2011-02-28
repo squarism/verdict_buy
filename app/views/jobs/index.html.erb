@@ -1,11 +1,5 @@
 <h1>Job Index</h1>
 
-<p>
-Jobs: <%= @jobs.size %><br>
-</p>
-
-<hr>
-
 <table>
 <th>ID</th>   <th>Name</th>   <th>Attempts</th>   <th>Last Error</th>
 <% @jobs.each do |j| %>
@@ -14,6 +8,10 @@ Jobs: <%= @jobs.size %><br>
   <td><%= j.name %></td>
   <td><%= j.attempts %></td>
   <td width="50%"><%= shorten_last_error(j.last_error) %></td>
+  <td><%= link_to 'destroy', job_url(j), :method => :delete, :confirm => "Are you sure?" %></td>
+  <!-- button works too 
+  <td><%# button_to "delete", job_url(j), :method=>:delete, :class=>:destroy %></td>
+  -->
 </tr>
 <% end %>
 </table>
@@ -28,8 +26,6 @@ Jobs: <%= @jobs.size %><br>
   First: <%= @job_states.first.name unless @job_states.size < 1 %>
 </p>
 
-
-<%# link_to 'Scrape Ars', :controller => 'jobs', :action => 'new', :id => 'scrape' %>
 <%= link_to 'Scrape Ars', queue_url('scrape')%><br>
 <%= link_to 'Counter', queue_url('counter')%><br>
 <%= link_to 'Paranoid', queue_url('paranoid')%><br>

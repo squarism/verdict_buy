@@ -7,6 +7,8 @@ gem 'rails', '3.0.4'
 
 gem 'mysql2'
 gem 'delayed_job', "2.1.4"
+gem 'nokogiri'
+gem 'typhoeus'
 
 # Use unicorn as the web server
 # gem 'unicorn'
