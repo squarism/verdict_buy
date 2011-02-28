@@ -112,7 +112,7 @@ class Scraper
         
         love = Love.new #(:ars_title => review.article_title)
         review.love = love
-        
+        p ArsReducer.new.reduce a
         title_array = Array.new
         a[:titles].each do |game_title|
           title_array << ArsTitle.new(:title => game_title)
