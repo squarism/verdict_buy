@@ -5,7 +5,7 @@ class CreateTables < ActiveRecord::Migration
     create_table :loves do |t|
       t.integer :ars_review_id
       t.string :gb_title
-      t.string :ars_title
+      #t.string :ars_title
       t.string :title
 
       t.timestamps
@@ -25,8 +25,9 @@ class CreateTables < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index(:ars_reviews, :link, :unique => true)
     
-    create_table :game_titles do |t|
+    create_table :ars_titles do |t|
       t.string  :title
       t.integer :ars_review_id
 
@@ -38,6 +39,6 @@ class CreateTables < ActiveRecord::Migration
     drop_table :loves
     drop_table :shop_list_items
     drop_table :ars_reviews
-    drop_table :game_titles
+    drop_table :ars_titles
   end
 end

@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(:version => 20110227054459) do
     t.datetime "updated_at"
   end
 
+  add_index "ars_reviews", ["link"], :name => "index_ars_reviews_on_link", :unique => true
+
+  create_table "ars_titles", :force => true do |t|
+    t.string   "title"
+    t.integer  "ars_review_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -35,13 +44,6 @@ ActiveRecord::Schema.define(:version => 20110227054459) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
-  create_table "game_titles", :force => true do |t|
-    t.string   "title"
-    t.integer  "ars_review_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "jobstates", :force => true do |t|
     t.string   "name"
     t.boolean  "running"
@@ -53,7 +55,6 @@ ActiveRecord::Schema.define(:version => 20110227054459) do
   create_table "loves", :force => true do |t|
     t.integer  "ars_review_id"
     t.string   "gb_title"
-    t.string   "ars_title"
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"

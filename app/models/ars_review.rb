@@ -1,5 +1,5 @@
 class ArsReview < ActiveRecord::Base
-  has_many :game_titles
+  has_many :ars_titles
   has_many :shop_list_items
-  has_many :loves
+  has_one :love
 end

@@ -8,3 +8,9 @@
 #   inflect.irregular 'person', 'people'
 #   inflect.uncountable %w( fish sheep )
 # end
+
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.singular 'loves', 'love'
+  # rails seems to think love is irregular, lol
+  inflect.irregular 'love', 'loves'
+end

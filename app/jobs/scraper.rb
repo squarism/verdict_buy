@@ -29,9 +29,9 @@ class Scraper
     self.parsed_reviews = Array.new
 
     # the below is for test/dev
-    self.test_mode = false
-    self.limit = 2  #pages to stop at
-    self.limit_count = 0
+    self.test_mode = true  # read from dump file instead of going to internet?
+    self.limit = 1          # pages of google results to process
+    self.limit_count = 0    # current page of google result
     
     if !self.test_mode
       begin
@@ -73,24 +73,15 @@ class Scraper
       puts $!
     end
     
-    h = {:title => @title, :link => @link, :date => @date}
-    h
+    {:title => @title, :link => @link, :date => @date}
   end
   
   def get_article(url)
     @nokogiri_doc = Nokogiri::HTML(open(url))
-    
-    # gzip fail
-    # @serialized_doc = @nokogiri_doc.serialize({:encoding => 'utf-8', :save_with => 0})
-    # @compressed_doc = Zlib::Deflate.deflate(@serialized_doc, Zlib::DEFAULT_COMPRESSION)
-    # reviews << { :title => @title, :link => @link, :date => @date, :doc => @compressed_doc }
-    
-    # base64 fail
+
+    # base64 the doc
     @encoded_doc = Base64::encode64(@nokogiri_doc.to_s)
     { :title => @title, :link => @link, :date => @date, :doc => @encoded_doc }
-    
-    #@msg = @nokogiri_doc.to_s.to_msgpack
-    #reviews << { :title => @title, :link => @link, :date => @date, :doc => @msg }
   end
   
   # dump a yml file for testing parsing
@@ -103,8 +94,36 @@ class Scraper
       end
     end
   end
-    
   
+  def write_reviews_to_db(array)
+    # temp for testing
+    ArsReview.delete_all
+    Love.delete_all
+    ArsTitle.delete_all
+    
+    array.each do |a|
+      # link is primary key so don't create articles twice
+      if ArsReview.where(:link => a[:link]).empty?
+        review = ArsReview.new(
+          :article_title => a[:title],
+          :link => a[:link],
+          :date => a[:date]
+        )
+        
+        love = Love.new #(:ars_title => review.article_title)
+        review.love = love
+        
+        title_array = Array.new
+        a[:titles].each do |game_title|
+          title_array << ArsTitle.new(:title => game_title)
+        end
+        
+        review.ars_titles = title_array
+        review.save!          
+      end
+    end
+  end
+
   def scrape(args={})
     if !args[:test_mode].nil?
       @test_mode = args[:test_mode]
@@ -119,50 +138,52 @@ class Scraper
       end
       dump_file.close
       
-      # skips all rest of scrape
-      return
-    end
-    
-    # get the google results for the current page
-    @doc = Nokogiri::HTML(open(self.search_url))
-    
-    review_buffer = Array.new
-    
-    # parse the result
-    split_results_page(@doc).each do |result|
-      mapped_result = map_search_chunk(result)
-      puts mapped_result[:link]
-      article_hash = get_article(mapped_result[:link])
-      self.reviews << article_hash
-      review_buffer << article_hash
-    end
-    
-    # if we run out of google results size will be less than 10 (full page of links)
-    if @doc.css('li.g').size >= 10
-      self.page += 1
-      puts "===> Sleeping before page: #{self.page}.  ZZzzz..."
-      
-      dump_file(review_buffer)
-      
-      # sleep to avoid hammering
-      sleep 3
-      
-      # set limit to -1 to scrape all google results, all pages
-      if self.limit == -1 || self.limit_count < self.limit - 1
-        self.limit_count += 1
-        scrape
+    else
+      # get the google results for the current page
+      @doc = Nokogiri::HTML(open(self.search_url))
+
+      review_buffer = Array.new
+
+      # parse the result
+      split_results_page(@doc).each do |result|
+        mapped_result = map_search_chunk(result)
+        puts mapped_result[:link]
+        article_hash = get_article(mapped_result[:link])
+        self.reviews << article_hash
+        review_buffer << article_hash
       end
-      
+
+      # if we run out of google results size will be less than 10 (full page of links)
+      if @doc.css('li.g').size >= 10
+        self.page += 1
+        puts "===> Sleeping before page: #{self.page}.  ZZzzz..."
+
+        dump_file(review_buffer) unless @test_mode
+
+        # sleep to avoid hammering
+        sleep 3
+
+        # set limit to -1 to scrape all google results, all pages
+        if self.limit == -1 || self.limit_count < self.limit - 1
+          self.limit_count += 1
+          scrape
+        end
+
+      end
+
+
+      # will get a 503 if you hammer google, so we'll cache to file
+      # this won't fire because of the return near top
+      # File.open(File.dirname(__FILE__) + "/ars_dump.yml", "a") do |file|
+      #   review_buffer.each do |review|
+      #     file.puts YAML::dump(review)
+      #   end
+      # end
     end
     
-    # will get a 503 if you hammer google, so we'll cache to file
-    # this won't fire because of the return near top
-    File.open(File.dirname(__FILE__) + "/ars_dump.yml", "a") do |file|
-      review_buffer.each do |review|
-        file.puts YAML::dump(review)
-      end
-    end
-        
+    parse(:verbose=>false)
+    write_reviews_to_db(@parsed_reviews)
+    
   end
   
   def search_url
@@ -305,7 +326,9 @@ class Scraper
         end
       end
 
-      self.parsed_reviews << { :title => r[:title], :link => r[:link], :date => r[:date], :titles => @titles }
+      hash = { :title => r[:title], :link => r[:link], :date => r[:date], :titles => @titles }
+      self.parsed_reviews << hash
+      #puts hash
 
     end
     
