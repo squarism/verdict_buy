@@ -9,7 +9,6 @@ require 'date'
 require 'yaml'
 require 'base64'
 
-
 class Scraper
   attr_accessor :number_of_results
   attr_accessor :reviews        # hash of parsed reviews
@@ -29,9 +28,9 @@ class Scraper
     self.parsed_reviews = Array.new
 
     # the below is for test/dev
-    self.test_mode = true  # read from dump file instead of going to internet?
-    self.limit = 1          # pages of google results to process
-    self.limit_count = 0    # current page of google result
+    self.test_mode = true     # read from dump file instead of going to internet?
+    self.limit = 1            # pages of google results to process
+    self.limit_count = 0      # current page of google result
     
     if !self.test_mode
       begin
@@ -41,14 +40,10 @@ class Scraper
         puts "Cache file already gone."
       end
     end
-    
-    # this is just concat'd so the code doesn't go off the page to the right.
-    # self.starting_url = "http://www.google.com/search?hl=en&safe=off&biw=1310&bih=1064"
-    # self.starting_url << "&q=site%3Aarstechnica.com+arstechnica.com+%22verdict%3A+buy%22&aq=f&start="
-    
+
+    # this is just concat'd so the code doesn't go off the page to the right.    
     # google search results minus the forums and news summary pages which would cause duplicates
     @starting_url = "http://www.google.com/search?q=site:arstechnica.com+%22verdict:+buy%22"
-    # @starting_url << "+-%22Gaming+News+posts%22&num=#{@page_size}&hl=en&safe=off&filter=0&start="
     @starting_url << "&num=#{@page_size}&hl=en&safe=off&filter=0&start="
   end
   
@@ -160,33 +155,29 @@ class Scraper
       if @doc.css('li.g').size >= 10
         self.page += 1
         puts "===> Sleeping before page: #{self.page}.  ZZzzz..."
-
         dump_file(review_buffer) unless @test_mode
-
-        # sleep to avoid hammering
-        sleep 3
-
+        sleep 3 # sleep to avoid hammering google and getting banned
         # set limit to -1 to scrape all google results, all pages
         if self.limit == -1 || self.limit_count < self.limit - 1
           self.limit_count += 1
           scrape
         end
-
       end
-
 
       # will get a 503 if you hammer google, so we'll cache to file
       # this won't fire because of the return near top
-      # File.open(File.dirname(__FILE__) + "/ars_dump.yml", "a") do |file|
-      #   review_buffer.each do |review|
-      #     file.puts YAML::dump(review)
-      #   end
-      # end
+      if !@test_mode
+        File.open(File.dirname(__FILE__) + "/ars_dump.yml", "a") do |file|
+          review_buffer.each do |review|
+            file.puts YAML::dump(review)
+          end
+        end
+      end
+      
     end
     
     parse(:verbose=>false)
     write_reviews_to_db(@parsed_reviews)
-    
   end
   
   def search_url
@@ -331,10 +322,7 @@ class Scraper
 
       hash = { :title => r[:title], :link => r[:link], :date => r[:date], :titles => @titles }
       self.parsed_reviews << hash
-      #puts hash
-
     end
-    
   end
   
   def write_parsed
