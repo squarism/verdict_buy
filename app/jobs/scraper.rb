@@ -28,7 +28,7 @@ class Scraper
     self.parsed_reviews = Array.new
 
     # the below is for test/dev
-    self.test_mode = true     # read from dump file instead of going to internet?
+    self.test_mode = false     # read from dump file instead of going to internet?
     self.limit = 1            # pages of google results to process
     self.limit_count = 0      # current page of google result
     
@@ -48,7 +48,7 @@ class Scraper
   end
   
   def split_results_page(doc)
-    @doc.css('li.g')
+    doc.css('li.g')
   end
   
   def map_search_chunk(result_html)
@@ -90,6 +90,17 @@ class Scraper
     end
   end
   
+  def load_reviews_from_cache_file
+    # Skip hammering google by loading from a cache file
+    dump_file = File.open(File.dirname(__FILE__) + "/ars_dump.yml")
+
+    YAML::load_documents(dump_file) do |doc|
+      self.reviews << doc
+    end
+
+    dump_file.close
+  end
+  
   def write_reviews_to_db(array)
     # temp for testing
     ArsReview.delete_all
@@ -129,21 +140,16 @@ class Scraper
     
     # test mode speeds up development because you don't have to wait 5 minutes to scrape ars
     if self.test_mode
-      # Skip hammering google by loading from a cache file
-      dump_file = File.open(File.dirname(__FILE__) + "/ars_dump.yml")
-      YAML::load_documents(dump_file) do |doc|
-        self.reviews << doc
-      end
-      dump_file.close
-      
+      load_reviews_from_cache_file
     else
       # get the google results for the current page
-      @doc = Nokogiri::HTML(open(self.search_url))
+      google_page_of_results = Nokogiri::HTML(open(self.search_url))
 
       review_buffer = Array.new
 
       # parse the result
-      split_results_page(@doc).each do |result|
+      google_results = split_results_page(google_page_of_results)
+      google_results.each do |result|
         mapped_result = map_search_chunk(result)
         puts mapped_result[:link]
         article_hash = get_article(mapped_result[:link])
@@ -152,7 +158,7 @@ class Scraper
       end
 
       # if we run out of google results size will be less than 10 (full page of links)
-      if @doc.css('li.g').size >= 10
+      if google_page_of_results.css('li.g').size >= 10
         self.page += 1
         puts "===> Sleeping before page: #{self.page}.  ZZzzz..."
         dump_file(review_buffer) unless @test_mode
