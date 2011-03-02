@@ -6,6 +6,6 @@ class ArsReview < ActiveRecord::Base
   # most likely title
   # TODO: need to trim out junk data that makes the title distribution 50/50
   def ars_title
-    self.ars_titles.order('percent_appears desc').limit(1).first
+    self.ars_titles.order('percent_appears desc').limit(1).first.title
   end
 end

@@ -30,7 +30,7 @@ class UpdateLove
   end
   
   def delayed_search(giant_client, review)
-    title = review.ars_title.title
+    title = review.ars_title
 
     if giant_client.title_matches? title
       review.love.gb_title = title
@@ -43,7 +43,7 @@ class UpdateLove
         gb_title = game_names.find(title).next
         review.love.gb_title = gb_title
       else
-        review.love.gb_title = "inconslusive giant bomb search"
+        review.love.gb_title = "<<NO GB HIT>>"
       end
     end
     review.love.save

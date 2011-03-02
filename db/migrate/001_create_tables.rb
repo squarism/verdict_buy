@@ -6,7 +6,8 @@ class CreateTables < ActiveRecord::Migration
       t.integer   :ars_review_id
       t.string    :gb_title
       t.string    :title
-      t.boolean   :ownership
+      t.boolean   :owned
+      t.boolean   :ignored
 
       t.timestamps
     end

@@ -57,7 +57,8 @@ ActiveRecord::Schema.define(:version => 20110227054459) do
     t.integer  "ars_review_id"
     t.string   "gb_title"
     t.string   "title"
-    t.boolean  "ownership"
+    t.boolean  "owned"
+    t.boolean  "ignored"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
