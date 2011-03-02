@@ -62,7 +62,13 @@ class JobsController < ApplicationController
   
   def destroy
     job = params[:id]
-    Delayed::Job.destroy job
+    begin
+      Delayed::Job.destroy job
+    rescue ActiveRecord::RecordNotFound
+      # we hit this when you try to clear a job that's already gone.
+      # TODO: something better here.
+      puts "meh."
+    end
     redirect_to jobs_path
   end
   

@@ -342,7 +342,8 @@ class Scraper
   
   def after(job)
     Jobstates.delete_all(:name => "scraper")
-    UpdateLove.new.update_love
+    g = GiantLookup.new
+    g.delay.update_love_giant_titles
   end
     
 end
