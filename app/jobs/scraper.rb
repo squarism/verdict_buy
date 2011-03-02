@@ -103,9 +103,9 @@ class Scraper
   
   def write_reviews_to_db(array)
     # temp for testing
-    ArsReview.delete_all
-    Love.delete_all
-    ArsTitle.delete_all
+    # ArsReview.delete_all
+    # Love.delete_all
+    # ArsTitle.delete_all
     
     array.each do |a|
       # link is primary key so don't create articles twice
@@ -342,6 +342,7 @@ class Scraper
   
   def after(job)
     Jobstates.delete_all(:name => "scraper")
+    UpdateLove.new.update_love
   end
     
 end

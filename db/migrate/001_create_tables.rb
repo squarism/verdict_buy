@@ -3,10 +3,10 @@
 class CreateTables < ActiveRecord::Migration
   def self.up
     create_table :loves do |t|
-      t.integer :ars_review_id
-      t.string :gb_title
-      #t.string :ars_title
-      t.string :title
+      t.integer   :ars_review_id
+      t.string    :gb_title
+      t.string    :title
+      t.boolean   :ownership
 
       t.timestamps
     end
