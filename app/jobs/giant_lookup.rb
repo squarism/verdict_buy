@@ -65,25 +65,20 @@ class GiantLookup
         title = review.love.title
       end
 
-      # if self.title_matches? title
-      #   review.love.gb_title = title
-      # else
-        gb_titles = self.find_games_by_title(title)
+      gb_titles = self.find_games_by_title(title)
 
-        # Do we have at least one hit from Giant Bomb?
-        if gb_titles.map{|g| g[:name].downcase}.include?(title.downcase)
-          # find a title using downcase.  if we have multiple hits, it's probably multiple platforms
-          # so just pick the first one
-          match = gb_titles.select {|hash| hash[:name].downcase == title.downcase}.first
+      # Do we have at least one hit from Giant Bomb?
+      if gb_titles.map{|g| g[:name].downcase}.include?(title.downcase)
+        # find a title using downcase.  if we have multiple hits, it's probably multiple platforms
+        # so just pick the first one
+        match = gb_titles.select {|hash| hash[:name].downcase == title.downcase}.first
 
-          review.love.gb_title = match[:name]
-          review.love.gb_id = match[:id]
-          puts match[:id]
-        else
-          review.love.gb_title = "<<NO GB HIT>>"
-        end
-      # end
-      
+        review.love.gb_title = match[:name]
+        review.love.gb_id = match[:id]
+      else
+        review.love.gb_title = "<<NO GB HIT>>"
+      end
+
       review.love.save
     end
     

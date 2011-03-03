@@ -1,4 +1,19 @@
+<script type="text/javascript">
+$(function() {
+	var availableTags = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby", "python", "c", "scala", "groovy", "haskell", "perl"];
+	$("#foo").autocomplete({
+		source: availableTags
+	});
+});
+</script>
+
+<div class="ui-widget">
+  <%= text_field_tag :search %>
+</div>
+
 <h1>Love List</h1>
+
+<%# observe_field :search, :url => live_search_path , :update => :results %>
 
 <table>
   <th>Ars Title</th>
@@ -19,3 +34,8 @@
   </tr>
   <% end %>
 </table>
+
+<div class="ui-widget" style="margin-top:2em; font-family:Arial">
+	Result:
+	<div id="log" style="height: 100px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>

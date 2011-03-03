@@ -10,6 +10,7 @@ gem 'delayed_job', "2.1.4"
 gem 'nokogiri'
 gem 'typhoeus'
 gem 'giant_bomb'
+gem 'jquery-rails', '>= 0.2.6'
 
 # Use unicorn as the web server
 # gem 'unicorn'

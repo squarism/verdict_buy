@@ -1,8 +1,11 @@
 ArsLovesGames::Application.routes.draw do
   
   match 'jobs/new/:id' => 'jobs#new', :as => :queue
+  match 'loves/find_titles' => 'loves#find_titles', :as => :live_search
   resources :jobs
   resources :loves
+  
+
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

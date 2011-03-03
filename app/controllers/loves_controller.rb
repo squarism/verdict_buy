@@ -6,6 +6,7 @@ class LovesController < ApplicationController
   
   # resolve title problems with search
   def find_titles(title)
+    puts "hey"
     @gb_titles = GiantLookup.new.find_games_by_title("Hard Corps.")
   end
   
