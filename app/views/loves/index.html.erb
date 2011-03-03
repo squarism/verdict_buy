@@ -11,10 +11,11 @@ $(function() {
   <%= text_field_tag :search %>
 </div>
 
-<h1>Love List</h1>
+<h1>Parsed List</h1>
 
 <%# observe_field :search, :url => live_search_path , :update => :results %>
 
+<!-->
 <table>
   <th>Ars Title</th>
   <th>Giant Bomb Title</th>
@@ -23,7 +24,7 @@ $(function() {
   <th>Owned</th>
   <th>Ignored</th>
   
-  <% @loves.each do |love| %>
+  <%= @loves.each do |love| %>
   <tr>
     <td><%= love.ars_review.ars_title unless nil %></td>
     <td><%= love.gb_title unless nil %></td>
@@ -32,7 +33,8 @@ $(function() {
     <td width="10%"><%= love.owned unless nil %></td>
     <td width="10%"><%= love.ignored unless nil %></td>
   </tr>
-  <% end %>
+  <% end %> -->
+
 </table>
 
 <div class="ui-widget" style="margin-top:2em; font-family:Arial">

@@ -10,14 +10,14 @@ class LovesController < ApplicationController
       format.json {
         search_term = params[:term]
         puts "JSON: #{search_term}"
-        @gb_titles = GiantLookup.new.find_games_by_title(search_term)
-        render :text => @gb_titles.to_json
+        @gb_titles = GiantLookup.new.find_games_by_title(search_term).collect{|h| h[:name]}
+        render :text => @gb_titles
       }
       format.js {
         search_term = params[:term]
         puts "JS #{search_term}"
         @gb_titles = GiantLookup.new.find_games_by_title(search_term)
-        render :text => @gb_titles.to_xml
+        #render :text => @gb_titles.to_xml
       }
     end
       

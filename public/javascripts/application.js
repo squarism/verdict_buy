@@ -40,7 +40,7 @@ function log( message ) {
 jQuery(document).ready(function(){
 	// alert("blah");
 	var availableTags = [ "java", "javascript", "ruby", "perl"];
-	jQuery("#search").val("foo");
+	//jQuery("#search").val("foo");
 	jQuery("#search").autocomplete({
 		source: "/loves/find_titles.json",
 		minLength: 2,
@@ -50,5 +50,5 @@ jQuery(document).ready(function(){
 				"Nothing selected, input was " + this.value );
 		}
 	});
-	jQuery("#search").val("done");
+	//jQuery("#search").val("done");
 });
