@@ -42,7 +42,7 @@ jQuery(document).ready(function(){
 	var availableTags = [ "java", "javascript", "ruby", "perl"];
 	jQuery("#search").val("foo");
 	jQuery("#search").autocomplete({
-		source:availableTags,
+		source: "/loves/find_titles.json",
 		minLength: 2,
 		select: function( event, ui ) {
 			log( ui.item ?
