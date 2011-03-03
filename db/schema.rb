@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20110227054459) do
   create_table "loves", :force => true do |t|
     t.integer  "ars_review_id"
     t.string   "gb_title"
+    t.integer  "gb_id"
     t.string   "title"
     t.boolean  "owned"
     t.boolean  "ignored"

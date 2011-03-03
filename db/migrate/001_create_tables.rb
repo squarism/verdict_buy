@@ -5,6 +5,7 @@ class CreateTables < ActiveRecord::Migration
     create_table :loves do |t|
       t.integer   :ars_review_id
       t.string    :gb_title
+      t.integer   :gb_id
       t.string    :title
       t.boolean   :owned
       t.boolean   :ignored

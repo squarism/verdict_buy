@@ -45,32 +45,52 @@ class GiantLookup
     hits.size == 1
   end
   
-  def game_names(title)
+  def find_games_by_title(title)
+    results = @client.find_game(title)
+    results.map {|r| {:id => r.id, :name=> r.name} }
+  end
+  
+  def find_titles(title)
     results = @client.find_game(title)
     results.collect(&:name)
   end
   
-  def update_love_giant_titles
+  def update_love
     
     ArsReview.all.each do |review|
       title = review.ars_title
+      
+      # if a custom title is set, use that instead of the ars title
+      if !review.love.title.nil?
+        title = review.love.title
+      end
 
-      if self.title_matches? title
-        review.love.gb_title = title
-      else
-        names = self.game_names(title)
+      # if self.title_matches? title
+      #   review.love.gb_title = title
+      # else
+        gb_titles = self.find_games_by_title(title)
 
-        # compare using downcase
-        if names.map{|g| g.downcase}.include?(title.downcase)
-          # find a name from giant bomb and use that
-          gb_title = names.find(title).next
-          review.love.gb_title = gb_title
+        # Do we have at least one hit from Giant Bomb?
+        if gb_titles.map{|g| g[:name].downcase}.include?(title.downcase)
+          # find a title using downcase.  if we have multiple hits, it's probably multiple platforms
+          # so just pick the first one
+          match = gb_titles.select {|hash| hash[:name].downcase == title.downcase}.first
+
+          review.love.gb_title = match[:name]
+          review.love.gb_id = match[:id]
+          puts match[:id]
         else
           review.love.gb_title = "<<NO GB HIT>>"
         end
-      end
+      # end
+      
       review.love.save
     end
+    
+  end
+  
+  def after
+    puts "after"
   end
   
 end
