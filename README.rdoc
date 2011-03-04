@@ -4,10 +4,10 @@ We luv arstechnica.  <3
 Sync games that ars says "Verdict: Buy" to local DB.  Compares local DB to your game list on giant bomb.  Anything you don't own that Ars loves, goes on a buy list.  Bam.
 
 == Run
-rails s
-rake jobs:work
+  rails s
+  rake jobs:work
 or
-script/delayed_job start
+  script/delayed_job start
 
 == Dev notes
 If you change a class in app/jobs, restart rake jobs:work.  Shouldn't need to restart rails.
