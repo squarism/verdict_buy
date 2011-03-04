@@ -27,7 +27,12 @@ class LovesController < ApplicationController
   
   def show
     # @love = Love.where(:gb_id => params[:id]).first
-    @love = Love.find(params[:id])
+    id = params[:id]
+    @love = Love.find id
+    
+    if !@love.gb_id.nil?
+      @gb_object = GiantLookup.new.find @love.gb_id
+    end
   end
     
 end

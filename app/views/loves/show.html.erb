@@ -7,8 +7,13 @@
 #info-panel-left { float: left; width:30%; padding-top: 2em; height:100%;}
 #info-panel-right { float: right; width:50%; padding-right:1em; padding-top: 2em; clear:none; margin-right:50px;}
 .form-label { float:left; padding:0px; margin:0px; }
-.form-input { float:right; padding:0px; margin:0px; font-size: 12px; }
-.form-input input { width: 220px;}
+.form-input { float:right; padding:0px; margin:0px; /*font-size: 12px;*/ }
+.form-input input { width: 220px; height:14px;}
+
+#attributes { /*font-size: 12px;*/ }
+.left { float:left; padding-right:1em; }
+.right { float:left; }
+
 </style>
 
 
@@ -35,10 +40,9 @@
     <% end %>
     <%# text_field_tag :search_1, nil, :class => 'autosearch', :value => "#{@love.gb_title}" %> <br>
     <%# text_field_tag :gbid_1, nil, :class => 'game_id' %> <br>
-    
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    
   </div>
+  
+  <%= render "attributes" %>
 </div>
 
 <!-- end content -->
