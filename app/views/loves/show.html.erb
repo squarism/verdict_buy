@@ -1,20 +1,65 @@
 <% content_for :javascript_includes do %>
-  <%= javascript_include_tag "love_show.js" %>
+  <%= javascript_include_tag "views/love_show.js" %>
 <% end %>
 
-<%= @foo %>
+<style type="text/css">
+#detail {margin:0px 0px 0px 0px; width:600px; height:300px;}
+#info-panel-left { float: left; width:30%; padding-top: 2em; height:100%;}
+#info-panel-right { float: right; width:50%; padding-right:1em; padding-top: 2em; clear:none; margin-right:50px;}
+.form-label { float:left; padding:0px; margin:0px; }
+.form-input { float:right; padding:0px; margin:0px; font-size: 12px; }
+.form-input input { width: 220px;}
+</style>
 
-<div class="ui-widget">
+
+<!-- begin content -->
+<div id="detail">
+  
+  
+<div id="info-panel-left">
+  <%= art_thumb 6 %>
+  <div class="ui-widget">
+  	Result:
+  	<div id="log" style="height: 100px; width: 200px; overflow: auto;" class="ui-widget-content"></div>
+  </div>
+</div>
+
+<div id="info-panel-right">
+  <div class="ui-widget">
+    <%= form_for @love do |love_form| %>
+      <div class="form-label">Title:</div>
+      <div class="form-input">
+        <%= love_form.text_field :gb_title, :class=>'autosearch' %>
+      </div>
+      <%= love_form.hidden_field :gb_id %>
+    <% end %>
+    <%# text_field_tag :search_1, nil, :class => 'autosearch', :value => "#{@love.gb_title}" %> <br>
+    <%# text_field_tag :gbid_1, nil, :class => 'game_id' %> <br>
+    
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    
+  </div>
+</div>
+
+<!-- end content -->
+</div>
+
+
+<!-- GBID: <%= @love.gb_id unless @love.nil? %><br>
+Title: <%= @love.gb_title.size %><br> -->
+
+<%# art_thumb @love.gb_id %>
+
+
+<!-- <br><br> -->
+
+<!-- <div class="ui-widget">
   <%= text_field_tag :search_1, nil, :class => 'autosearch' %>
   <%= text_field_tag :gbid_1, nil, :class => 'game_id' %>
   <br>
   <%= text_field_tag :search_2, nil, :class => 'autosearch' %>
   <%= text_field_tag :gbid_2, nil, :class => 'game_id' %>
-</div>
+</div> -->
 
 
 
-<div class="ui-widget" style="margin-top:2em; font-family:Arial">
-	Result:
-	<div id="log" style="height: 100px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
-</div>

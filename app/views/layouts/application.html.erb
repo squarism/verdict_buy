@@ -6,6 +6,7 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Ars Loves Games</title>
   <%= javascript_include_tag 'jquery-1.4.4.min', 'jquery-ui-1.8.10.custom.min', 'application' %>
+  <%= yield :javascript_includes %>
   <%= csrf_meta_tag %>
   <%= stylesheet_link_tag 'luvars', 'pepper-grinder/jquery-ui-1.8.10.custom.css' %>
 </head>
