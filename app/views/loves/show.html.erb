@@ -1,0 +1,20 @@
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "love_show.js" %>
+<% end %>
+
+<%= @foo %>
+
+<div class="ui-widget">
+  <%= text_field_tag :search_1, nil, :class => 'autosearch' %>
+  <%= text_field_tag :gbid_1, nil, :class => 'game_id' %>
+  <br>
+  <%= text_field_tag :search_2, nil, :class => 'autosearch' %>
+  <%= text_field_tag :gbid_2, nil, :class => 'game_id' %>
+</div>
+
+
+
+<div class="ui-widget" style="margin-top:2em; font-family:Arial">
+	Result:
+	<div id="log" style="height: 100px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>

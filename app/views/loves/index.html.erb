@@ -1,10 +1,6 @@
-<div class="ui-widget">
-  <%= text_field_tag :search_1, nil, :class => 'autosearch' %>
-  <%= text_field_tag :gbid_1, nil, :class => 'game_id' %>
-  <br>
-  <%= text_field_tag :search_2, nil, :class => 'autosearch' %>
-  <%= text_field_tag :gbid_2, nil, :class => 'game_id' %>
-</div>
+
+<%# herzog = GiantLookup.new.find(11439) %>
+<%= link_to 'Herzog', love_url(11439) %>
 
 <h1>Parsed List</h1>
 
@@ -29,8 +25,3 @@
   <% end %> -->
 
 </table>
-
-<div class="ui-widget" style="margin-top:2em; font-family:Arial">
-	Result:
-	<div id="log" style="height: 100px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
-</div>

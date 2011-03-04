@@ -24,5 +24,9 @@ class LovesController < ApplicationController
     end
       
   end
+  
+  def show
+    @foo = "bar"
+  end
     
 end
