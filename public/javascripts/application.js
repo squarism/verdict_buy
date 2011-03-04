@@ -12,6 +12,7 @@ function set_text(text) {
 }
 
 var last_auto = "";
+var last_id = "";
 
 // autocomplete magic function
 var box_handler = function() {
@@ -27,9 +28,17 @@ var box_handler = function() {
 		minLength: 2,
 		select: function( event, ui ) {
 			last_auto = ui.item.name;
+			last_id = ui.item.id;
+			log("selected ID:" + ui.item.id);
 		},
 		close: function(event, ui) {
 			$(this).val(last_auto);
+			
+			// search_1 -> gbid_1
+			var id = this.id.split("_");
+			var brother = "#gbid_" + id[1];
+			$(brother).val(last_id);
+			log(brother);
 		}
 	}).data( "autocomplete" )._renderItem = function( ul, item ) {
 			return $( "<li></li>" )
