@@ -1,3 +1,9 @@
+<style type="text/css">
+/*#main {margin:0px 0px 0px 0px; min-width:400px; height:100%;}*/
+.cover_thumbs {list-style-type:none; }
+.cover_thumbs li {width:100px; height:100px; float:left; padding-right:2px; margin-bottom:2px; }
+.cover_thumbs li.ender {width:1px; height:1px; float:none; clear:both;  margin:0px; }
+</style>
 
 <%# herzog = GiantLookup.new.find(11439) %>
 <%= link_to 'Herzog', love_url(11439) %>
@@ -25,3 +31,21 @@
   <% end %> -->
 
 </table>
+
+
+<h1>Covers</h1>
+<div id="main" >
+  <ul class="cover_thumbs" >
+    
+    <% @loves.each do |love| %>
+    <li>
+     <a href="/book/milk" >
+       <img src="/images/art_cache/25523_icon.jpg" title="25523" />
+      <!-- <img src="/images/books/milk.thumb.jpg" width="122" height="163" alt="Milk" title="Milk" /> -->
+     </a>
+    </li>
+    <% end %>
+  </ul>
+  
+  <br style="clear:both;" />
+</div>

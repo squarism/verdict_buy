@@ -1,16 +1,26 @@
+# Artwork image cacher job.
+
+# main image for a game is like this:
+# giant_bomb_object -> image -> thumb_url => images/art_cache/thumb
+# giant_bomb_object -> image -> super_url => images/art_cache/super
+
+# giant_bomb_object -> images is an array of screenshots etc, don't need to use that.
+
 class Artwork
   
   def update_all
-    Love.all_with_gbid.each {|love| a.update(love.gb_id)}
+    Love.all_with_gbid.each {|love| self.update(love.gb_id)}
   end
   
   def update(id)
     title = GiantLookup.new.find(id)
     thumb_image = title["image"]["thumb_url"]
     super_image = title["image"]["super_url"]
+    icon_image = title["image"]["icon_url"]
     
     self.save_image(thumb_image, "#{id}_thumb", "public/images/art_cache")
     self.save_image(super_image, "#{id}_super", "public/images/art_cache")
+    self.save_image(icon_image, "#{id}_icon", "public/images/art_cache")
   end
 
   def save_image(url, base_name, directory)

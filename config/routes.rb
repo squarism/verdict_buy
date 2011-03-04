@@ -5,8 +5,6 @@ ArsLovesGames::Application.routes.draw do
   resources :jobs
   resources :loves
   
-
-  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

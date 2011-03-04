@@ -2,7 +2,13 @@
   <%= javascript_include_tag "love_show.js" %>
 <% end %>
 
-<%= @foo %>
+GBID: <%= @love.gb_id %><br>
+Title: <%# @love.gb_title %><br>
+
+<%= art_icon 25523 %>
+<%# art_thumb 25523 %>
+<%# image_tag '/images/art_cache/25523_icon.jpg'%>
+<!-- <img src=<%= Rails.root + "/images/art_cache/22523_super.jpg" %> > -->
 
 <div class="ui-widget">
   <%= text_field_tag :search_1, nil, :class => 'autosearch' %>

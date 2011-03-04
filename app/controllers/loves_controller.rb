@@ -26,6 +26,7 @@ class LovesController < ApplicationController
   end
   
   def show
+    @love = Love.where(:gb_id => params[:id]).first
     @foo = "bar"
   end
     
