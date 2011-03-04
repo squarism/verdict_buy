@@ -53,11 +53,9 @@ var box_handler = function() {
 		// when you're done searching
 		close: function(event, ui) {
 			$(this).val(last_auto);
-						// search_1 -> gbid_1
-			var id = this.id.split("_");
-			var brother = "#gbid_" + id[1];
-			$(brother).val(last_id);
-			log(brother);
+			// search_1 -> gbid_1
+			$('#love_gb_id').val(last_id);
+			log("set hidden gb_id to:" + last_id);
 		}
 	}).data( "autocomplete" )._renderItem = function( ul, item ) {
 			return $( "<li></li>" )
@@ -70,11 +68,11 @@ var box_handler = function() {
 jQuery(document).ready(function(){
 	
 	// select all search textboxes
-	$('.autosearch').val('foo');
+	//$('.autosearch').val('foo');
 	
 	// bind the autocomplete magic to them
 	$('.autosearch').each(function(i, val){
-		$(this).val('foo' + i);
+		//$(this).val('foo' + i);
 		$(this).bind('focus', box_handler);
 	});
 	
