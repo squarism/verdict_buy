@@ -6,25 +6,68 @@ function log( message ) {
 	$( "#log" ).attr( "scrollTop", 0 );
 }
 
-jQuery(document).ready(function(){
-	jQuery("#search").autocomplete({
+function set_text(text) {
+	alert(text);
+	$(this).val(text);
+}
+
+var last_auto = "";
+
+// autocomplete magic function
+var box_handler = function() {
+	// alert($(this).val());
+	$(this).autocomplete({
 		source: "/loves/find_titles.json",
 		dataType: "json",
 		focus: function(event, ui) {
-		    $('#search').val(ui.item.name);
+		    $(this).val(ui.item.name);
 				//log(ui.item.id);
 		    return false;
 		},
 		minLength: 2,
 		select: function( event, ui ) {
-			log( ui.item ?
-				"Selected: " + ui.item.name + " aka " + ui.item.id :
-				"Nothing selected, input was " + this.value );
+			last_auto = ui.item.name;
+		},
+		close: function(event, ui) {
+			$(this).val(last_auto);
 		}
 	}).data( "autocomplete" )._renderItem = function( ul, item ) {
-		return $( "<li></li>" )
-		.data( "item.autocomplete", item )
-		.append( "<a>" + item.name + "</a>" )
-		.appendTo( ul );
-    };
+			return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.name + "</a>" )
+			.appendTo( ul );
+   };
+}
+
+jQuery(document).ready(function(){
+	
+	// select all search textboxes
+	$('.autosearch').val('foo');
+	
+	// bind the autocomplete magic to them
+	$('.autosearch').each(function(i, val){
+		$(this).val('foo' + i);
+		$(this).bind('focus', box_handler);
+	});
+	
+	// jQuery("#search").autocomplete({
+	// 	source: "/loves/find_titles.json",
+	// 	dataType: "json",
+	// 	focus: function(event, ui) {
+	// 	    $('#search').val(ui.item.name);
+	// 			//log(ui.item.id);
+	// 	    return false;
+	// 	},
+	// 	minLength: 2,
+	// 	select: function( event, ui ) {
+	// 		log( ui.item ?
+	// 			"Selected: " + ui.item.name + " aka " + ui.item.id :
+	// 			"Nothing selected, input was " + this.value );
+	// 	}
+	// }).data( "autocomplete" )._renderItem = function( ul, item ) {
+	// 	return $( "<li></li>" )
+	// 	.data( "item.autocomplete", item )
+	// 	.append( "<a>" + item.name + "</a>" )
+	// 	.appendTo( ul );
+	//     };
 });

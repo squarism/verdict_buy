@@ -1,14 +1,6 @@
-<script type="text/javascript">
-$(function() {
-	var availableTags = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby", "python", "c", "scala", "groovy", "haskell", "perl"];
-	$("#foo").autocomplete({
-		source: availableTags
-	});
-});
-</script>
-
 <div class="ui-widget">
-  <%= text_field_tag :search %>
+  <%= text_field_tag :search, nil, :class => 'autosearch' %><br>
+  <%= text_field_tag :another, nil, :class => 'autosearch' %>
 </div>
 
 <h1>Parsed List</h1>
