@@ -38,6 +38,12 @@ class GiantLookup
     
   end
   
+  # returns hash
+  # "date_added"=>"2010-09-30 05:38:46", "first_appearance_concepts"=>[], "name"=>"Herz von Afrika"
+  def find(id)
+    @client.get_game(id).attributes
+  end
+  
   def is_title?(title)
     results = @client.find_game(title)
     hits = results.select { |r| r.name.downcase == title.downcase }
