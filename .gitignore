@@ -5,3 +5,4 @@ tmp/
 config/database.yml
 app/jobs/ars_dump.yml
 config/api_key.yml
+public/images/art_cache/*
