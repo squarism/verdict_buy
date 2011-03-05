@@ -39,7 +39,8 @@
     <% @loves.each do |love| %>
     <li>
        <%# art_icon(love.gb_id) %><br>
-       <%= link_to art_icon(6), love_url(love) %>
+       <%# if love.gb_id.nil? %>
+       <%= link_to art_icon(love.gb_id), love_url(love) %>
     </li>
     <% end %>
   </ul>

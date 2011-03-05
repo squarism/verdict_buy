@@ -22,25 +22,29 @@ function set_text(text) {
 	$(this).val(text);
 }
 
-function correct_name(name, id) {
+// Name: new name from autocorrect box
+// ID: id from love table (cleaned up games)
+// GBID: the id from giant bomb
+function correct_name(name, gbid, id) {
 	$.ajax({
 		url: '/loves/revise_title.json',
 		contentType: 'application/json',
-		data: JSON.stringify({ page: { "name":name, "id":id } }),
+		data: JSON.stringify({ page: { "name":name, "id":id, "gbid":gbid } }),
 		dataType: 'json',
-		type: 'PUT'
-		// success: function(data,text){
+		type: 'PUT',
+		success: function(data,text){
 		// 	// put everything in here or it won't run on click
 		// 	// batchId = data.batchId;
-		// 	alert(data);
+		log(data);
 		// 	//$("#progressbar").show();
-		// }
+		}
 	});
 }
 
 // we need these as globals to set the pairs
 var last_auto = "";
 var last_id = "";
+var love_id = "";
 
 // Title text box and ID fields are tied.
 // IDs are cleaner so we'll update the UI and then later use that for search.
@@ -71,7 +75,7 @@ var box_handler = function() {
 			$(this).val(last_auto);
 			// search_1 -> gbid_1
 			$('#love_gb_id').val(last_id);
-			correct_name(last_auto, last_id);
+			correct_name(last_auto, last_id, love_id);
 			// send a save message to the controller saying we are overriding the title
 			log("set hidden gb_id to:" + last_id);
 		}
@@ -93,6 +97,9 @@ jQuery(document).ready(function(){
 		//$(this).val('foo' + i);
 		$(this).bind('focus', box_handler);
 	});
+	
+	// get our hidden field to store our model id from rails
+	love_id = $('#love_id').val();
 	
 	// jQuery("#search").autocomplete({
 	// 	source: "/loves/find_titles.json",

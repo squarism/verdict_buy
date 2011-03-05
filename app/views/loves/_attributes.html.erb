@@ -24,9 +24,14 @@
     <%= @gb_object["deck"] %>
     </p>
   </div>
+  
+  <em><%= @love.ars_review.ars_title %></em>
 
 <% else %>
-<!-- Our guess from Ars is all jacked up, give a hint for cleanup -->
-<h2>Hint</h2>
-<%= @love.ars_review.ars_title %>
+
+  <!-- Our guess from Ars is all jacked up, give a hint for cleanup -->
+  <strong>Hint</strong><br>
+  Arstechnica called it <em><%= @love.ars_review.ars_title %></em>.<br>
+  Set the title above for great justice.
+
 <% end %>

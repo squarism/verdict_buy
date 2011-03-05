@@ -10,7 +10,7 @@
 .form-input { float:right; padding:0px; margin:0px; /*font-size: 12px;*/ }
 .form-input input { width: 220px; height:12px; font-family: courier; font-size:11px;}
 
-#attributes { font-size: 12px; width:350px; height:150px; padding:2px; margin:0.25em; border:1px solid black;}
+#attributes { font-size: 12px; width:350px; height:90px; padding:2px; margin:0.25em; border:1px solid black;}
 .left { float:left; width:35%; height:100%; border:1px solid black;}
 .right { float:left; width:60%; height:100%; white-space:nowrap; overflow:hidden; border:1px solid black;}
 #description { clear:both; margin:0.25em; padding:2px; border:1px solid black;}
@@ -38,6 +38,7 @@
         <%= love_form.text_field :gb_title, :class=>'autosearch' %>
       </div>
       <%= love_form.hidden_field :gb_id %>
+      <%= love_form.hidden_field :id %>
     <% end %>
     <%# text_field_tag :search_1, nil, :class => 'autosearch', :value => "#{@love.gb_title}" %> <br>
     <%# text_field_tag :gbid_1, nil, :class => 'game_id' %> <br>

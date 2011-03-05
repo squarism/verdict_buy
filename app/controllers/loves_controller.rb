@@ -28,9 +28,22 @@ class LovesController < ApplicationController
   def revise_title
     respond_to do |format|
       format.json {
+        # So here our textbox has been filled out with a better title
+        # than what we detected from ars.  So we want to save this title
+        # to a title column in the <3 love <3 table.  Later we'll use that column
+        # instead of all the automagic stuff.
         puts params[:page]
-        puts "CORRECT DEE TITLE"
-        render :text => "your mom"
+        name = params[:page]["name"]
+        giant_bomb_id = params[:page]["gbid"]
+        love_id = params[:page]["id"]
+        
+        @game = Love.find(love_id)
+        @game.gb_title = name
+        @game.gb_id = giant_bomb_id
+        @game.save
+
+        # render nothin and snack on a muffin.
+        render :text => "Updated game information in table.  Thanks."
       }
     end
   end
