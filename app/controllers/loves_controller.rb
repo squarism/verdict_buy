@@ -10,8 +10,8 @@ class LovesController < ApplicationController
       format.json {
         search_term = params[:term]
         puts "JSON: #{search_term}"
-        #@gb_titles = GiantLookup.new.find_games_by_title(search_term) #.collect{|h| h[:name]}
-        @gb_titles = [{:id=>11439, :name=>"Herzog Zwei"}, {:id=>5048, :name=>"Herzog"}, {:id=>32818, :name=>"Herz von Afrika"}]
+        @gb_titles = GiantLookup.new.find_games_by_title(search_term) #.collect{|h| h[:name]}
+        #@gb_titles = [{:id=>11439, :name=>"Herzog Zwei"}, {:id=>5048, :name=>"Herzog"}, {:id=>32818, :name=>"Herz von Afrika"}]
         render :json => @gb_titles.to_json
       }
       
@@ -23,6 +23,16 @@ class LovesController < ApplicationController
       }
     end
       
+  end
+  
+  def revise_title
+    respond_to do |format|
+      format.json {
+        puts params[:page]
+        puts "CORRECT DEE TITLE"
+        render :text => "your mom"
+      }
+    end
   end
   
   def show

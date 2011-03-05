@@ -24,6 +24,9 @@
     <%= @gb_object["deck"] %>
     </p>
   </div>
-  
 
+<% else %>
+<!-- Our guess from Ars is all jacked up, give a hint for cleanup -->
+<h2>Hint</h2>
+<%= @love.ars_review.ars_title %>
 <% end %>

@@ -22,6 +22,22 @@ function set_text(text) {
 	$(this).val(text);
 }
 
+function correct_name(name, id) {
+	$.ajax({
+		url: '/loves/revise_title.json',
+		contentType: 'application/json',
+		data: JSON.stringify({ page: { "name":name, "id":id } }),
+		dataType: 'json',
+		type: 'PUT'
+		// success: function(data,text){
+		// 	// put everything in here or it won't run on click
+		// 	// batchId = data.batchId;
+		// 	alert(data);
+		// 	//$("#progressbar").show();
+		// }
+	});
+}
+
 // we need these as globals to set the pairs
 var last_auto = "";
 var last_id = "";
@@ -55,6 +71,8 @@ var box_handler = function() {
 			$(this).val(last_auto);
 			// search_1 -> gbid_1
 			$('#love_gb_id').val(last_id);
+			correct_name(last_auto, last_id);
+			// send a save message to the controller saying we are overriding the title
 			log("set hidden gb_id to:" + last_id);
 		}
 	}).data( "autocomplete" )._renderItem = function( ul, item ) {
