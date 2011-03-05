@@ -1,9 +1,9 @@
 body { background-color: #5f7395; color: #333; }
 
 body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size:   13px;
-  line-height: 18px;
+  font-family: georgia, verdana, arial, helvetica, sans-serif;
+  font-size:   12px;
+  line-height: 15px;
 }
 
 pre {
@@ -55,7 +55,8 @@ a:hover { color: #fff; background-color:#000; }
 #main {
 	background-color: #fff;
 	border: solid #000 1px;
-	margin: 5em;
+	width: 600px;
+	margin: 1em;
 /*	height: 100%;*/
 	padding: 1em;
 }

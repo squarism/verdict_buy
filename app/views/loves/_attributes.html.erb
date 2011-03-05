@@ -2,16 +2,28 @@
 
   <div id="attributes">
     <div class="left">
-      Foo:<br>
-      Bar:<br>
-      Quux:<br>
+      Platforms:<br>
+      Release Date:<br>
+      Developers:<br>
+      Publishers:<br>
+      Game Rating:<br>
     </div>
 
     <div class="right">
-      bouncy<br>
-      rubbery<br>
-      weird<br>
+      <%= @gb_object["platforms"].collect{|h| h["name"]}.join(", ")%><br>
+      <%= Date.parse(@gb_object["original_release_date"]).strftime("%a, %d-%b-%Y") %><br>
+      <%= @gb_object["developers"].collect{|h| h["name"]}.join(", ") %><br>
+      <%= @gb_object["publishers"].collect{|h| h["name"]}.join(", ") %><br>
+      <%= @gb_object["original_game_rating"] %><br>
     </div>
+    <br>
   </div>
+  
+  <div id="description">
+    <p>
+    <%= @gb_object["deck"] %>
+    </p>
+  </div>
+  
 
 <% end %>
