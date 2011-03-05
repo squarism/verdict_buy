@@ -20,18 +20,19 @@
   </div>
   
   <div id="description">
+    <strong>Description</strong>
     <p>
     <%= @gb_object["deck"] %>
     </p>
   </div>
   
-  <em><%= @love.ars_review.ars_title %></em>
+  <%= link_to "Arstechnica called it", @love.ars_review.link %> <em><%= @love.ars_review.ars_title %></em>
 
 <% else %>
 
   <!-- Our guess from Ars is all jacked up, give a hint for cleanup -->
   <strong>Hint</strong><br>
-  Arstechnica called it <em><%= @love.ars_review.ars_title %></em>.<br>
+  <%= link_to "Arstechnica called it", @love.ars_review.link %> <em><%= @love.ars_review.ars_title %></em>.<br>
   Set the title above for great justice.
 
 <% end %>

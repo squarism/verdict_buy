@@ -2,7 +2,7 @@ class JobsController < ApplicationController
   attr_reader :valid_jobs
 
   def initialize
-    @valid_jobs = [ "counter", "paranoid", "scraper" ]
+    @valid_jobs = [ "counter", "paranoid", "scraper", "artwork", "artwork_single" ]
     super
   end
   
