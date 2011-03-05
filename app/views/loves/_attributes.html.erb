@@ -7,6 +7,8 @@
       Developers:<br>
       Publishers:<br>
       Game Rating:<br>
+      Love GBID:<br>
+      GB GBID:<br>
     </div>
 
     <div class="right">
@@ -15,6 +17,8 @@
       <%= @gb_object["developers"].collect{|h| h["name"]}.join(", ") %><br>
       <%= @gb_object["publishers"].collect{|h| h["name"]}.join(", ") %><br>
       <%= @gb_object["original_game_rating"] %><br>
+      <%= @love.gb_id %><br>
+      <%= @gb_object["id"] %><br>
     </div>
     <br>
   </div>
@@ -26,7 +30,7 @@
     </p>
   </div>
   
-  <%= link_to "Arstechnica called it", @love.ars_review.link %> <em><%= @love.ars_review.ars_title %></em>
+  <%= link_to "Arstechnica calls it", @love.ars_review.link %> <em><%= @love.ars_review.ars_title %></em>
 
 <% else %>
 

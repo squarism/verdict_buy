@@ -55,6 +55,11 @@ class JobsController < ApplicationController
       else
         return false
       end
+    when "artwork"
+      @artwork_worker = ArtworkWorker.new
+      @artwork_worker.delay.update_all
+      return true
+    when "artwork_single"
     else
       puts "You gave me #{job} -- I have no idea what to do with that."
     end

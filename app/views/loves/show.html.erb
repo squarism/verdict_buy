@@ -3,14 +3,14 @@
 <% end %>
 
 <style type="text/css">
-#detail {margin:0.25em;; width:650px; height:300px; font-family: georgia;}
-#info-panel-left { float: left; width:25%; padding-top: 2em; height:100%;}
-#info-panel-right { float: left; width:50%; padding-top: 2em; clear:none; margin-left:5em; margin-right:25px;}
+#detail {margin:0.25em;; width:650px; height:400px; font-family: georgia;}
+#info-panel-left { float: left; width:25%; padding-top: 0.5em; height:100%;}
+#info-panel-right { float: left; width:50%; padding-top: 0.5em; clear:none; margin-left:5em; margin-right:25px;}
 .form-label { float:left; padding:0px; margin:0px; font-family: georgia; }
 .form-input { float:right; padding:0px; margin:0px; /*font-size: 12px;*/ }
 .form-input input { width: 280px; height:12px; font-family: courier; font-size:11px;}
 
-#attributes { font-size: 12px; width:350px; height:90px; padding:2px; margin:0.25em; border:1px solid #fff;}
+#attributes { font-size: 12px; width:350px; height:120px; padding:2px; margin:0.25em; border:1px solid #fff;}
 .left { float:left; width:23%; padding:2px; margin:2px; height:90%; border-right:1px solid #ccc; }
 .right { float:left; width:65%; padding:2px; margin:2px; height:90%; white-space:nowrap; overflow:hidden; }
 #description { clear:both; width:350px; margin:0.25em; padding:2px; border-top:1px solid gray;}
@@ -23,7 +23,7 @@
   
   
 <div id="info-panel-left">
-  <%= art_thumb 6 %>
+  <%= art_thumb @love.gb_id %>
   <div class="ui-widget">
   	Result:
   	<div id="log" style="height: 100px; width: 200px; overflow: auto;" class="ui-widget-content"></div>

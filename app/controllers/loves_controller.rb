@@ -33,17 +33,26 @@ class LovesController < ApplicationController
         # to a title column in the <3 love <3 table.  Later we'll use that column
         # instead of all the automagic stuff.
         puts params[:page]
+        
         name = params[:page]["name"]
         giant_bomb_id = params[:page]["gbid"]
         love_id = params[:page]["id"]
         
-        @game = Love.find(love_id)
-        @game.gb_title = name
-        @game.gb_id = giant_bomb_id
-        @game.save
+        # don't do anything if autocomplete is submitting blanks
+        if !name.blank? && !giant_bomb_id.blank? && !love_id.blank?        
+          @game = Love.find(love_id)
+          @game.title = name
+          @game.gb_id = giant_bomb_id
+          @game.save
 
-        # render nothin and snack on a muffin.
-        render :text => "Updated game information in table.  Thanks."
+          # schedule update of that dude.
+          ArtworkWorker.new.delay.update(@game.gb_id)
+        
+          # render nothin and snack on a muffin.
+          render :text => "Updated game information in table.  Thanks."
+        else
+          render :text => "Not enough parameters from the ajax call.  You're probably autocompleting too fast."
+        end
       }
     end
   end
@@ -56,6 +65,12 @@ class LovesController < ApplicationController
     if !@love.gb_id.nil?
       @gb_object = GiantLookup.new.find @love.gb_id
     end
+  end
+  
+  def update
+    flash[:alert] = "There's no title named that in Giant Bomb's DB."
+    redirect_to love_path
+    #render :text => "You are overriding a title that doesn't exist dude."
   end
     
 end

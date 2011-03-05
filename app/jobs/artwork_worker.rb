@@ -6,7 +6,7 @@
 
 # giant_bomb_object -> images is an array of screenshots etc, don't need to use that.
 
-class Artwork
+class ArtworkWorker
   
   def update_all
     Love.all_with_gbid.each {|love| self.update(love.gb_id)}
@@ -21,6 +21,7 @@ class Artwork
     self.save_image(thumb_image, "#{id}_thumb", "public/images/art_cache")
     self.save_image(super_image, "#{id}_super", "public/images/art_cache")
     self.save_image(icon_image, "#{id}_icon", "public/images/art_cache")
+    puts "Done saving images for #{title["name"]}."
   end
 
   def save_image(url, base_name, directory)
