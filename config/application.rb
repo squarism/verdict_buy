@@ -41,5 +41,7 @@ module ArsLovesGames
     
     config.autoload_paths += Dir["#{config.root}/lib/**/"] # include all subdirectories
     config.autoload_paths += Dir["#{config.root}/app/jobs/**/"] # include all subdirectories
+    
+    config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
   end
 end

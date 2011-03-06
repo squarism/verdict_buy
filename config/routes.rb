@@ -1,6 +1,7 @@
 ArsLovesGames::Application.routes.draw do
   
   match 'jobs/new/:id' => 'jobs#new', :as => :queue
+  match 'jobs/destroy/:id' => 'jobs#destroy', :as => :destroy_job
   match 'loves/find_titles' => 'loves#find_titles', :as => :live_search
   match 'loves/revise_title' => 'loves#revise_title', :as => :revise_title
   resources :jobs

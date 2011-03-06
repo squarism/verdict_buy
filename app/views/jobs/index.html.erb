@@ -1,3 +1,8 @@
+<%= link_to 'Scrape Ars', queue_url('scraper')%> | 
+<%= link_to 'Update all artwork', queue_url('artwork')%> | 
+<%= link_to 'Counter', queue_url('counter')%> | 
+<%= link_to 'Paranoid', queue_url('paranoid')%><br>
+
 <h1>Job Index</h1>
 
 <table>
@@ -8,10 +13,7 @@
   <td><%= j.name %></td>
   <td><%= j.attempts %></td>
   <td width="50%"><%= shorten_last_error(j.last_error) %></td>
-  <td><%= link_to 'destroy', job_url(j), :method => :delete, :confirm => "Are you sure?" %></td>
-  <!-- button works too 
-  <td><%# button_to "delete", job_url(j), :method=>:delete, :class=>:destroy %></td>
-  -->
+  <td><%= link_to 'Delete', destroy_job_url(j), :method => :delete, :confirm => "Are you sure?" %></td>
 </tr>
 <% end %>
 </table>
@@ -26,6 +28,3 @@
   First: <%= @job_states.first.name unless @job_states.size < 1 %>
 </p>
 
-<%= link_to 'Scrape Ars', queue_url('scraper')%><br>
-<%= link_to 'Counter', queue_url('counter')%><br>
-<%= link_to 'Paranoid', queue_url('paranoid')%><br>
