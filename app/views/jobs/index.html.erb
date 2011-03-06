@@ -1,6 +1,11 @@
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "views/jobs_index.js" %>
+<% end %>
+
 <style type="text/css">
 #job_list { float:right; margin-top:0.5em; padding:2px; border-top: 1px solid gray;}
-#job_index { margin-top:4em;}
+#job_index { margin-top:4em; }
+#unignore { margin-top:4em; }
 </style>
 
 <div id="job_list">
@@ -10,7 +15,7 @@
 
 <div id="job_index">
   <h1>Job Index</h1>
-  <hr>
+  <em>Jobs that are running are listed here.  Be sure to start rake jobs:work so that they actually run.</em>
   <table>
   <th>ID</th>   <th>Name</th>   <th>Attempts</th>   <th>Last Error</th>
   <% @jobs.each do |j| %>
@@ -20,6 +25,27 @@
     <td><%= j.attempts %></td>
     <td width="50%"><%= shorten_last_error(j.last_error) %></td>
     <td><%= link_to 'Delete', destroy_job_url(j), :method => :delete, :confirm => "Are you sure?" %></td>
+  </tr>
+  <% end %>
+  </table>
+</div>
+
+<div id="unignore">
+  <h1>Ignored</h1>
+  <em>You can unignore things here.</em>
+  <table>
+  <th>ID</th>   <th>Ars Title</th>   <th>Giant Bomb Title</th>   <th></th>
+  <% @ignored.each do |game| %>
+  <tr>
+    <td><%= game.id %></td>
+    <td><%= game.ars_review.ars_title %></td>
+    <td><%= game.gb_title %></td>
+    <td>
+    <%= form_for game do |game_form| %>
+      <%= game_form.hidden_field :id %>
+      Ignored:<%= game_form.check_box :ignored, :class=>'unignore_checkbox' %>
+    <% end %>
+    </td>
   </tr>
   <% end %>
   </table>

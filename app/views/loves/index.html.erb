@@ -18,9 +18,7 @@
     <% if love.owned %><li class="owned"><span></span>
     <% else %><li>
     <% end %>
-
-       <%# art_icon(love.gb_id) %><br>
-       <%# if love.gb_id.nil? %>
+       <!-- TODO: put a cool alt hover over for the title -->
        <%= link_to art_icon(love.gb_id), love_url(love) %>
     </li>
     <% end %>

@@ -9,6 +9,7 @@ class JobsController < ApplicationController
   def index
     @jobs = Delayed::Job.all
     @job_states = Jobstates.all
+    @ignored = Love.where(:ignored => true)
   end
   
   # this should be create but oh well

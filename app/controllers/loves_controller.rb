@@ -1,7 +1,7 @@
 class LovesController < ApplicationController
   
   def index
-    @loves = Love.all
+    @loves = Love.where(:ignored => false)
     @heading = "Verdict: Buy"
   end
   
