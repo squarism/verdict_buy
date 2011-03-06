@@ -85,8 +85,9 @@ class GiantLookup
         review.love.gb_title = "<<NO GB HIT>>"
       end
       
-      review.love.owned = false
-      review.love.ignored = false
+      # only set to defaults if is null in DB, otherwise, it will overwrite own/ignore each run
+      review.love.owned = false if review.love.owned.nil?
+      review.love.ignored = false if review.love.ignored.nil?
 
       review.love.save
     end

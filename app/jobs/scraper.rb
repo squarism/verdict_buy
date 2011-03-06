@@ -29,7 +29,7 @@ class Scraper
 
     # the below is for test/dev
     self.test_mode = false     # read from dump file instead of going to internet?
-    self.limit = 1            # pages of google results to process
+    self.limit = 0            # pages of google results to process
     self.limit_count = 0      # current page of google result
     
     if !self.test_mode
