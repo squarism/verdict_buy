@@ -7,30 +7,6 @@
 .cover_thumbs img { border:solid 1px gray; }
 </style>
 
-<!-->
-<h1>Parsed List</h1>
-
-<table>
-  <th>Ars Title</th>
-  <th>Giant Bomb Title</th>
-  <th>Custom Title</th>
-  <th>Giant ID</th>
-  <th>Owned</th>
-  <th>Ignored</th>
-  
-  <%= @loves.each do |love| %>
-  <tr>
-    <td><%= love.ars_review.ars_title unless nil %></td>
-    <td><%= love.gb_title unless nil %></td>
-    <td><%= love.title unless nil %></td>
-    <td><%= love.gb_id unless nil %></td>
-    <td width="10%"><%= love.owned unless nil %></td>
-    <td width="10%"><%= love.ignored unless nil %></td>
-  </tr>
-  <% end %> -->
-
-</table>
-
 
 <h1>Verdict: Buy</h1>
 <div id="covers" >
