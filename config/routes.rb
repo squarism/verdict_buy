@@ -6,6 +6,7 @@ ArsLovesGames::Application.routes.draw do
   match 'loves/revise_title' => 'loves#revise_title', :as => :revise_title
   match 'loves/update_owned' => 'loves#update_owned', :as => :update_owned
   match 'loves/update_ignored' => 'loves#update_ignored', :as => :update_ignored
+  match 'loves/owned' => 'loves#owned', :as => :owned
   resources :jobs
   resources :loves
   

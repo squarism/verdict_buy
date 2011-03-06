@@ -2,6 +2,13 @@ class LovesController < ApplicationController
   
   def index
     @loves = Love.all
+    @heading = "Verdict: Buy"
+  end
+  
+  def owned
+    @loves = Love.where(:owned => true)
+    @heading = "Titles Owned"
+    render :index
   end
   
   # resolve title problems with search

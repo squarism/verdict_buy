@@ -5,7 +5,6 @@ module ApplicationHelper
   end
 
   def art_thumb(id)
-    puts art_path(id, "thumb")
     return art_path(id, "thumb")
   end
 
@@ -17,16 +16,15 @@ module ApplicationHelper
   # if no file is there, return a placeholder that follows this naming
   # convention.
   def art_path(id, underscore_name)
-    # TODO: we suck down any extension so this might break
-    extensions = [ ".jpg", ".png", ".jpeg", ".gif" ]
-    # use extensions array if so, else take this out.
+    # TODO: adding other file types, this might break
+    # extensions = [ ".jpg", ".png", ".jpeg", ".gif" ]
 
-    wildcard = "public/images/art_cache/#{id}_#{underscore_name}*"   
+    # match any file in the image directory
+    wildcard = "public/images/art_cache/#{id}_#{underscore_name}*"
+    # we shouldn't have multiple files extensions for the same game so just grab first
     file_match = Dir[wildcard].first
-    puts file_match
 
     if file_match
-      puts image_tag file_match.sub(/^public\//,'')
       return image_tag file_match.sub(/^public\/images\//,'')
     else
       return image_tag "/images/no_art_#{underscore_name}.gif"
