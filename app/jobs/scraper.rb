@@ -23,13 +23,13 @@ class Scraper
   def initialize
     self.number_of_results = 0
     self.page = 0
-    @page_size = 10
+    @page_size = 50
     self.reviews = Array.new
     self.parsed_reviews = Array.new
 
     # the below is for test/dev
     self.test_mode = false     # read from dump file instead of going to internet?
-    self.limit = 0            # pages of google results to process
+    self.limit = 1            # pages of google results to process, -1 is infinite
     self.limit_count = 0      # current page of google result
     
     if !self.test_mode
@@ -122,13 +122,17 @@ class Scraper
         # number of times a title appears from an ars article using a variety of guessing methods
         title_percentage = ArsReducer.new.reduce a
         
-        title_array = Array.new
-        title_percentage.each do |key, value|
-          title_array << ArsTitle.new(:title => key, :percent_appears => value)
+        # no titles detected returns a nil from reducer
+        if !title_percentage.nil?
+          title_array = Array.new
+          title_percentage.each do |key, value|
+            title_array << ArsTitle.new(:title => key, :percent_appears => value)
+          end
+          review.ars_titles = title_array
+          review.save!
+        else
+          puts ">>> Cannot detect any titles for: #{a[:title]} : #{a[:link]}"
         end
-        
-        review.ars_titles = title_array
-        review.save!          
       end
     end
   end
@@ -158,11 +162,11 @@ class Scraper
       end
 
       # if we run out of google results size will be less than 10 (full page of links)
-      if google_page_of_results.css('li.g').size >= 10
+      if google_page_of_results.css('li.g').size >= @page_size
         self.page += 1
         puts "===> Sleeping before page: #{self.page}.  ZZzzz..."
         dump_file(review_buffer) unless @test_mode
-        sleep 3 # sleep to avoid hammering google and getting banned
+        sleep 2 # sleep to avoid hammering google and getting banned
         # set limit to -1 to scrape all google results, all pages
         if self.limit == -1 || self.limit_count < self.limit - 1
           self.limit_count += 1
@@ -263,7 +267,7 @@ class Scraper
       # Game Review: WiiPlay (Wii)
       if doc.css('title').text[/^Game Review:/]
         print "STYLE 1: " if verbose
-        title = doc.css('title').text.split(":")[1].strip
+        title = doc.css('title').text.split(":")[1].strip rescue nil
         puts title if verbose
         @titles << title
       end
@@ -272,7 +276,7 @@ class Scraper
       # http://arstechnica.com/gaming/reviews/2010/04/plain-sighton-the-pc-low-gravity-suicidal-robot-ninjas.ars
       if doc.xpath('//div[@id="story"]/h2[@class="title"]').css('em').text.size > 0
         print "STYLE 4: " if verbose
-        title = doc.xpath('//div[@id="story"]/h2[@class="title"]').css('em').text.strip
+        title = doc.xpath('//div[@id="story"]/h2[@class="title"]').css('em').text.strip rescue nil
         puts title if verbose
         @titles << title
       end
