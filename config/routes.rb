@@ -4,6 +4,8 @@ ArsLovesGames::Application.routes.draw do
   match 'jobs/destroy/:id' => 'jobs#destroy', :as => :destroy_job
   match 'loves/find_titles' => 'loves#find_titles', :as => :live_search
   match 'loves/revise_title' => 'loves#revise_title', :as => :revise_title
+  match 'loves/update_owned' => 'loves#update_owned', :as => :update_owned
+  match 'loves/update_ignored' => 'loves#update_ignored', :as => :update_ignored
   resources :jobs
   resources :loves
   

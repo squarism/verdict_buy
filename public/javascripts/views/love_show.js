@@ -41,6 +41,26 @@ function correct_name(name, gbid, id) {
 	});
 }
 
+function update_owned(id, value) {
+	$.ajax({
+		url: '/loves/update_owned.json',
+		contentType: 'application/json',
+		data: JSON.stringify({ "id":id, "value":value } ),
+		dataType: 'json',
+		type: 'PUT'
+	});
+}
+
+function update_ignored(id, value) {
+	$.ajax({
+		url: '/loves/update_ignored.json',
+		contentType: 'application/json',
+		data: JSON.stringify({ "id":id, "value":value } ),
+		dataType: 'json',
+		type: 'PUT'
+	});
+}
+
 // we need these as globals to set the pairs
 var last_auto = "";
 var last_id = "";
@@ -100,6 +120,17 @@ jQuery(document).ready(function(){
 	
 	// get our hidden field to store our model id from rails
 	love_id = $('#love_id').val();
+	
+	// ownership and ignore update boxes
+	$('#love_owned').click(function() {
+		log("click:" + $(this).attr('checked'));
+		update_owned(love_id, $(this).attr('checked'));
+	});
+	$('#love_ignored').click(function() {
+		log("click:" + $(this).attr('checked'));
+		update_ignored(love_id, $(this).attr('checked'));
+	});
+	
 	
 	// jQuery("#search").autocomplete({
 	// 	source: "/loves/find_titles.json",

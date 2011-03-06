@@ -10,7 +10,7 @@
 .form-input { float:right; padding:0px; margin:0px; /*font-size: 12px;*/ }
 .form-input input { width: 280px; height:12px; font-family: courier; font-size:11px;}
 
-#attributes { font-size: 12px; width:350px; height:120px; padding:2px; margin:0.25em; border:1px solid #fff;}
+#attributes { font-size: 12px; width:350px; height:150px; padding:2px; margin:0.25em; border:1px solid #fff;}
 .left { float:left; width:23%; padding:2px; margin:2px; height:90%; border-right:1px solid #ccc; }
 .right { float:left; width:65%; padding:2px; margin:2px; height:90%; white-space:nowrap; overflow:hidden; }
 #description { clear:both; width:350px; margin:0.25em; padding:2px; border-top:1px solid gray;}
@@ -24,6 +24,13 @@
   
 <div id="info-panel-left">
   <%= art_thumb @love.gb_id %>
+  <div id="ownership">
+    <%= form_for @love do |ownership_form| %>
+    <!-- Owned:||| Ignored:||| -->
+      Own:<%= ownership_form.check_box :owned %>
+      Ignore:<%= ownership_form.check_box :ignored %>
+    <% end %>
+  </div>
   <div class="ui-widget">
   	Result:
   	<div id="log" style="height: 100px; width: 200px; overflow: auto;" class="ui-widget-content"></div>
@@ -35,13 +42,22 @@
     <%= form_for @love do |love_form| %>
       <div class="form-label">Title:</div>
       <div class="form-input">
-        <%= love_form.text_field :gb_title, :class=>'autosearch' %>
+        <%
+          if @love.gb_title == "<<NO GB HIT>>"
+            if @love.title
+              @default = @love.title
+            else
+              @default = "Set me"
+            end
+          else
+            @defailt = @love.gb_title
+          end
+        %>
+        <%= love_form.text_field :gb_title, :value => @default, :class=>'autosearch' %>
       </div>
       <%= love_form.hidden_field :gb_id %>
       <%= love_form.hidden_field :id %>
     <% end %>
-    <%# text_field_tag :search_1, nil, :class => 'autosearch', :value => "#{@love.gb_title}" %> <br>
-    <%# text_field_tag :gbid_1, nil, :class => 'game_id' %> <br>
   </div>
   
   <%= render "attributes" %>

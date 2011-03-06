@@ -8,7 +8,8 @@
       Publishers:<br>
       Game Rating:<br>
       Love GBID:<br>
-      GB GBID:<br>
+      Owned:<br>
+      Ignored:<br>
     </div>
 
     <div class="right">
@@ -18,7 +19,8 @@
       <%= @gb_object["publishers"].collect{|h| h["name"]}.join(", ") %><br>
       <%= @gb_object["original_game_rating"] %><br>
       <%= @love.gb_id %><br>
-      <%= @gb_object["id"] %><br>
+      <%= @love.owned.nil? ? "false" : "true" %><br>
+      <%= @love.ignored.nil? ? "false" : "true" %>
     </div>
     <br>
   </div>

@@ -57,6 +57,49 @@ class LovesController < ApplicationController
     end
   end
   
+  # TODO: refactor this for DRY
+  def update_owned
+    respond_to do |format|
+      format.json {        
+        love_id = params["id"]
+        value = params["value"]
+        
+        # don't do anything if submitted blanks
+        if !value.nil? && !love_id.blank?        
+          @game = Love.find(love_id)
+          @game.owned = value
+          @game.save
+
+          # render nothin and snack on a muffin.
+          render :text => "Updated owned on #{@game.gb_title}.  Thanks."
+        else
+          render :text => "Not enough parameters from the ajax call.  I don't know what you did with the checkboxes."
+        end
+      }
+    end
+  end
+  
+  def update_ignored
+    respond_to do |format|
+      format.json {
+        love_id = params["id"]
+        value = params["value"]
+        
+        # don't do anything if submitted blanks
+        if !value.nil? && !love_id.blank?        
+          @game = Love.find(love_id)
+          @game.ignored = value
+          @game.save
+
+          # render nothin and snack on a muffin.
+          render :text => "Updated ignored on #{@game.gb_title}.  Thanks."
+        else
+          render :text => "Not enough parameters from the ajax call.  I don't know what you did with the checkboxes."
+        end
+      }
+    end
+  end
+  
   def show
     # @love = Love.where(:gb_id => params[:id]).first
     id = params[:id]
