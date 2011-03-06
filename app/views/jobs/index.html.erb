@@ -1,28 +1,26 @@
-<%= link_to 'Scrape Ars', queue_url('scraper')%> | 
-<%= link_to 'Update all artwork', queue_url('artwork')%>
+<style type="text/css">
+#job_list { float:right; margin-top:0.5em; padding:2px; border-top: 1px solid gray;}
+#job_index { margin-top:4em;}
+</style>
 
-<h1>Job Index</h1>
+<div id="job_list">
+  <%= image_tag '/images/database_go.png'%> <%= link_to 'Scrape Ars', queue_url('scraper')%>
+  <%= image_tag '/images/database_refresh.png'%> <%= link_to 'Update all artwork', queue_url('artwork')%>
+</div>
 
-<table>
-<th>ID</th>   <th>Name</th>   <th>Attempts</th>   <th>Last Error</th>
-<% @jobs.each do |j| %>
-<tr>
-  <td><%= j.id %></td>
-  <td><%= j.name %></td>
-  <td><%= j.attempts %></td>
-  <td width="50%"><%= shorten_last_error(j.last_error) %></td>
-  <td><%= link_to 'Delete', destroy_job_url(j), :method => :delete, :confirm => "Are you sure?" %></td>
-</tr>
-<% end %>
-</table>
-
-<hr>
-
-<br>
-
-<strong>States</strong>
-<p>
-  States: <%= @job_states.size %><br>
-  First: <%= @job_states.first.name unless @job_states.size < 1 %>
-</p>
-
+<div id="job_index">
+  <h1>Job Index</h1>
+  <hr>
+  <table>
+  <th>ID</th>   <th>Name</th>   <th>Attempts</th>   <th>Last Error</th>
+  <% @jobs.each do |j| %>
+  <tr>
+    <td><%= j.id %></td>
+    <td><%= j.name %></td>
+    <td><%= j.attempts %></td>
+    <td width="50%"><%= shorten_last_error(j.last_error) %></td>
+    <td><%= link_to 'Delete', destroy_job_url(j), :method => :delete, :confirm => "Are you sure?" %></td>
+  </tr>
+  <% end %>
+  </table>
+</div>
