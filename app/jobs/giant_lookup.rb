@@ -84,6 +84,9 @@ class GiantLookup
       else
         review.love.gb_title = "<<NO GB HIT>>"
       end
+      
+      review.love.owned = false
+      review.love.ignored = false
 
       review.love.save
     end

@@ -11,6 +11,12 @@ class LovesController < ApplicationController
     render :index
   end
   
+  def buy
+    @loves = Love.where(:owned => false, :ignored => false)
+    @heading = "Buy List"
+    render :index
+  end
+  
   # resolve title problems with search
   def find_titles
     respond_to do |format|
