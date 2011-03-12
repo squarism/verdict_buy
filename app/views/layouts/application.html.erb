@@ -8,30 +8,97 @@
   <%= javascript_include_tag 'jquery', 'jquery-ui', 'rails', 'application' %>
   <%= yield :javascript_includes %>
   <%= csrf_meta_tag %>
-  <%= stylesheet_link_tag 'luvars', 'pepper-grinder/jquery-ui-1.8.10.custom.css' %>
+  <%= stylesheet_link_tag 'verdict', 'pepper-grinder/jquery-ui-1.8.10.custom.css' %>
 </head>
 <body>
 
 <div id="main">
+
+  <!-- <div id="logo-bar">
+  <%= link_to(:root) do %>
+    <h1>Verdict: Buy</h1>
+  <% end %>
+  <span>&nbsp;</span>
+  </div> -->
 	
-	<div id="topNav">
-    <%= image_tag '/images/heart.png'%> <%= link_to "Ars Loves", :root %> &nbsp; 
-    <%= image_tag '/images/star.png'%> <%= link_to "Owned", :controller => 'loves', :action => 'owned' %> &nbsp; 
-    <%= image_tag '/images/money.png'%> <%= link_to "Buy List", buy_path %> &nbsp; 
-    <%= image_tag '/images/cog.png'%> <%= link_to "Jobs", jobs_path %> &nbsp; 
+	<div id="main-bar">
+		<div id="main-nav"><!--MainNav one &nbsp; | &nbsp; two &nbsp; | &nbsp; three-->
+  		<%= link_to "Verdict: Buy", :root %> &nbsp; 
+      <%= link_to "Owned", :controller => 'loves', :action => 'owned' %> &nbsp; 
+      <%= link_to "Buy List", buy_path %> &nbsp; 
+      <%= link_to "Jobs", jobs_path %> &nbsp;
+    </div>
+    
+		<div id="login-nav">LoginNav signup &nbsp; | &nbsp; login</div>
+	</div>	
+	
+	<div id="side-bar">
+		<h1>Side-Bar</h1>
+		<div id="side-nav">
+			<ul>
+				<li><a href="#">Wub</a></li>
+				<li><a href="#">Dub</a></li>
+				<li><a href="#">Chubb</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="content">
+		
+		<div id="content-body">
+			<% if notice %>
+    		<p id="notice"><%= notice %></p>
+    	<% end %>
+
+    	<% if alert %>
+    		<p id="alert"><%= alert %></p>
+    	<% end %>
+
+
+    	<%= yield %>
+		</div>
+		
 	</div>
 	
-	<% if notice %>
-		<p id="notice"><%= notice %></p>
-	<% end %>
+	<div id="subNav">
+		<ul>
+			<li id="aux-about" class="sub-nav-list">
+				<h3>Meta</h3>
+				<ul class="links">
+					<li><a href="#">About</a></li>
+				</ul>
+			</li>
 
-	<% if alert %>
-		<p id="alert"><%= alert %></p>
-	<% end %>
+			<li id="aux-moar" class="sub-nav-list">
+				<h3>Moar</h3>
+				<ul class="links">
+					<li><a href="#">Project1</a></li>
+					<li><a href="#">Project2</a></li>
+					<li><a href="#">Project3</a></li>
+					<li><a href="#">Project4</a></li>
+					<li><a href="#">Project5</a></li>
+				</ul>
+			</li>
 
+			<li id="aux-legal" class="sub-nav-list">
+				<h3>Legal</h3>
+				<ul class="links">
+					<li><a href="#">Terms</a></li>
+					<li><a href="#">Privacy Policy</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
 	
-	<%= yield %>
-</div>
+	<!-- MIT LICENSE -->
+	<div id="footer">
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	THE SOFTWARE.
+	</div>
 
-</body>
-</html>
+</div>

@@ -1,0 +1,285 @@
+
+a:active { color:#3B2B39; }
+a:visited { color:#3B2B39; }
+a { text-decoration: none; color: #959568 }
+a:hover { color: #222; text-decoration:underline; }
+h1 { color: #CDD297 }
+
+/* main is universe, universe has everything */
+#main { 
+/* 	border: 1px solid #eee;  */
+	background-color: #fff;
+	font-family: georgia, helvetica, arial, sans-serif;
+	color: #000;
+}
+
+/* has logo and search box, most upper header */
+#logo-bar { 
+/* 	border: 1px solid #eee;  */
+	float:none;
+	height:40px; 
+	color:#3F1203;
+	border-bottom: 1px solid #3F1203;
+}
+
+#logo-bar h1 {
+	color: #3F1203;
+}
+
+#logo-bar span {
+	border-bottom: 5px solid #3F1203;
+	min-width:50%;
+	height:35px;
+	top: 9px;
+	left: 8px;
+	position: absolute;
+}
+
+/* a strip under the logo bar for main buttons */
+#main-bar { 
+/* 	border: 1px solid black;  */
+	float:none; 
+	height:20px; 
+	padding-top: 4px;
+	padding-bottom: 4px;
+	color: #7F3D1E;
+	border-top: 1px solid #7F3D1E;
+	border-bottom: 1px solid #7F3D1E;
+}
+
+/* nav buttons in main-bar */
+#main-nav {
+	float:left;
+	position:absolute;
+	padding-left: 0.5em;
+	padding-bottom: 2px;
+	border-bottom: 5px solid #7F3D1E;
+}
+
+/* login buttons in main-bar */
+#login-nav {
+	float:right;
+	padding-right: 0.5em;
+}
+
+/* side bar contains everything to the side of the content */
+#side-bar {
+/* 	border: 1px solid #ddd;  */
+	float:left; 
+	height:75%;
+	width: 20%;
+	margin-left: 0%;
+	padding-right:2%;
+	padding-left:2%;
+}
+
+#side-bar h1 {
+	font-size: 30px;
+	text-transform: uppercase;
+	margin: -0.2em;
+	padding: 0.2em;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+/* side-nav goes in side-bar */
+
+#side-nav ul {
+	list-style-type: none;
+	display: inline;
+
+}
+
+#side-nav li {
+	font-size: 0.8em;
+	line-height: 2em;
+	font-family: Helvetica;
+	text-transform: none;
+	color: #959568;
+	margin-left:0.3em;
+	border-bottom: 1px solid #CDD297;
+}
+
+#content {
+/* 	border: 1px solid #eee; */
+	float:right;
+	height:75%;
+	width:75%;
+	margin-left: 0em;
+	padding-left: 0em;
+	background-color: #fff;
+	min-height:45em;
+}
+
+#content-heading {
+/* 	border: 1px solid #959568; */
+	height:2em;
+	text-align: right;
+	padding-right: 0.5em;
+	padding-bottom: 0.5em;
+	padding-top: 0.5em;
+}
+
+#content-heading h1 { 
+	font-size: 28px;
+	margin: 0px;
+}
+
+.content-bar {
+/* 	border: 1px solid #eee; */
+	border-bottom: 1px solid #CDD297;
+	height: 1.3em;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+}
+
+.content-bar #filter { 
+	float:left;
+	margin-left: 1em;
+	width: 5em;
+	color: #959568;
+	border-bottom: 3px solid #CDD297;
+	margin-bottom: -5px;
+}
+
+.pagination {
+/* 	border: 1px solid black; */
+	float:right;
+	margin-right: 1em;
+	color: #959568;
+}
+
+#pagination-bottom {
+		bottom:-50em;
+}
+
+#pagination-bottom span {
+	width:40%;
+	position:absolute;
+/* 	top: 90px; */
+
+	left: 25%;
+	border-bottom: 4px solid #CDD297;
+}
+
+#content-body { 
+	height:86%;
+	color: #000;
+	margin-top: 1em;
+}
+
+#subNav {
+/* 	border: 1px solid #eee; */
+	float:center;
+	clear:both;
+	height:6em;
+	background-color: #3B2B39;
+	overflow: visible;
+	font-family: verdana,arial,sans-serif;
+}
+
+#subNav li {
+	list-style-type: none;
+	width:210px;
+	float:left;
+	padding-left: 10px;
+}
+
+#subNav h3 {
+	color:#fff;
+	font-size:10px;
+	text-transform:uppercase; 
+	margin-top: 5px; 
+	margin-bottom: 1px;
+}
+
+#subNav a:hover {
+	text-decoration:underline; 
+	color:#fff;
+}
+
+.links li {
+	margin-left:-50px; 
+	padding-left:-50px; 
+	padding-right:0px;
+	line-height:12px;
+	white-space:nowrap;
+}
+
+.links a {
+	text-decoration: none; 
+	color:#ddd;
+	font-size:11px;
+}
+
+.sub-nav-list { margin-left:30px; }
+
+#footer {
+	float:none;
+	clear:none;
+	background-color: #000;
+	height:6em;
+	color:#555;
+	font-family: verdana,arial,sans-serif;
+	font-size:9px;
+	padding-left:6em;
+	padding-right:6em;
+	padding-top:0.8em;
+	text-transform:lowercase; 
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 30em;
+  border: 2px solid red;
+  padding: 1em;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: center;
+  font-weight: bold;
+  padding: 2px 2px 2px 2px;
+  font-size: 12px;
+  margin: 0px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 2px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+#notice {
+	background-color: #e1facf;
+	border: solid #97C36d 1px;
+	padding: 0.5em;
+}
+
+#alert {
+	background-color: #fae1cf;
+	border: solid #C3976d 1px;
+	padding: 0.5em;
+}

@@ -8,8 +8,17 @@
 #covers li.owned span { width:16px; height: 16px; margin-top:-16px; display:block; position:relative; top:10px; left:-5px; background: url(/images/star.png) no-repeat; }
 </style>
 
+<div id="content-heading">
+	<h1><%= @heading %></h1>
+</div>
 
-<h1><%= @heading %></h1>
+<div class="content-bar">
+	<div id="filter">Filter</div>
+	<div id="pagination-top" class="pagination">
+		<a href="#">&lt;-- pagination</a> <a href="#">street --&gt;</a> 1-20 of 400
+	</div>
+</div>
+
 <div id="covers" >
   <ul class="cover_thumbs" >
     
@@ -25,4 +34,12 @@
   </ul>
   
   <br style="clear:both;" />
+</div>
+
+
+<div class="content-bar">
+	<div id="pagination-bottom" class="pagination">
+		<a href="#">&lt;-- pagination</a> <a href="#">street --&gt;</a> 1-20 of 400
+		<span></span>
+	</div>
 </div>

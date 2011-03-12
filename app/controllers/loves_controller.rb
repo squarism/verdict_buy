@@ -114,13 +114,24 @@ class LovesController < ApplicationController
   end
   
   def show
-    # @love = Love.where(:gb_id => params[:id]).first
     id = params[:id]
     @love = Love.find id
     
     if !@love.gb_id.nil?
       @gb_object = GiantLookup.new.find @love.gb_id
     end
+    
+    # if the title is dirty and hasn't been overridden, display set me, otherwise use the custom title
+    if @love.gb_title == "<<NO GB HIT>>"
+      if @love.title
+        @default = @love.title
+      else
+        @default = "Set me"
+      end
+    else
+      @default = @love.gb_title
+    end
+    
   end
   
   def update
