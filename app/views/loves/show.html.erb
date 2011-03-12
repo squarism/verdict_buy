@@ -17,6 +17,10 @@
 
 </style>
 
+<div id="content-heading">
+	<h1>Arstechnica Loves This</h1>
+</div>
+
 
 <!-- begin content -->
 <div id="detail">
@@ -31,10 +35,13 @@
       Ignore:<%= ownership_form.check_box :ignored %>
     <% end %>
   </div>
-  <div class="ui-widget">
-  	Result:
-  	<div id="log" style="height: 100px; width: 200px; overflow: auto;" class="ui-widget-content"></div>
-  </div>
+
+  <!-- Debug -->
+  <!-- <div class="ui-widget">
+    Result:
+    <div id="log" style="height: 100px; width: 200px; overflow: auto;" class="ui-widget-content"></div>
+  </div> -->
+
 </div>
 
 <div id="info-panel-right">
@@ -42,8 +49,6 @@
     <%= form_for @love do |love_form| %>
       <div class="form-label">Title:</div>
       <div class="form-input">
-        <%
-        %>
         <%= love_form.text_field :gb_title, :value => @default, :class=>'autosearch' %>
       </div>
       <%= love_form.hidden_field :gb_id %>
