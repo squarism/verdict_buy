@@ -18,10 +18,18 @@ class ArtworkWorker
     super_image = title["image"]["super_url"]
     icon_image = title["image"]["icon_url"]
     
-    self.save_image(thumb_image, "#{id}_thumb", "public/images/art_cache")
-    self.save_image(super_image, "#{id}_super", "public/images/art_cache")
-    self.save_image(icon_image, "#{id}_icon", "public/images/art_cache")
-    puts "Done saving images for #{title["name"]}."
+    # save flag for status
+    saved = false
+    
+    thumb_saved = self.save_image(thumb_image, "#{id}_thumb", "public/images/art_cache")
+    super_saved = self.save_image(super_image, "#{id}_super", "public/images/art_cache")
+    icon_saved = self.save_image(icon_image, "#{id}_icon", "public/images/art_cache")
+    
+    if thumb_saved || super_saved || icon_saved
+      puts "Done saving images for #{title["name"]}."
+    else
+      puts "Skipped saving images for #{title["name"]}."
+    end
   end
 
   def save_image(url, base_name, directory)
@@ -30,7 +38,8 @@ class ArtworkWorker
     file_name = "#{base_name}#{file_extension}"
 
     if File.exist?(directory + "/" + file_name)
-      puts "Artwork.save_image(): Skipping file already downloaded"
+      # puts "Artwork.save_image(): Skipping file already downloaded"
+      return false
     else
       # Get the response and data from the web for this image.
       response = Net::HTTP.get_response(URI.parse(url))
@@ -40,8 +49,10 @@ class ArtworkWorker
         f = File.open(directory + "/" + file_name, "wb+")
         f << response.body
         f.close
+        return true
       else
         puts "reponse is nil from #{url}:#{response}"
+        raise Exception, "RESPONSE WAS NIL"
       end
     end
   end
