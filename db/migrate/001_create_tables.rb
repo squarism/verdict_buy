@@ -10,6 +10,14 @@ class CreateTables < ActiveRecord::Migration
       t.boolean   :owned
       t.boolean   :ignored
 
+      # giant bomb caching attributes
+      t.string    :platforms
+      t.timestamp :release_date
+      t.string    :developers
+      t.string    :publishers
+      t.string    :game_rating
+      t.string    :description
+
       t.timestamps
     end
     

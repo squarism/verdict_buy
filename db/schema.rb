@@ -60,6 +60,12 @@ ActiveRecord::Schema.define(:version => 20110227054459) do
     t.string   "title"
     t.boolean  "owned"
     t.boolean  "ignored"
+    t.string   "platforms"
+    t.datetime "release_date"
+    t.string   "developers"
+    t.string   "publishers"
+    t.string   "game_rating"
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

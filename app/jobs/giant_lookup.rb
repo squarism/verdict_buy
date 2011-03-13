@@ -44,16 +44,36 @@ class GiantLookup
     @client.get_game(id).attributes
   end
   
+  # see if a string is an exact name anywhere in giant bomb
   def is_title?(title)
     results = @client.find_game(title)
-    hits = results.select { |r| r.name.downcase == title.downcase }
-    
-    hits.size == 1
+    title_names = results.collect{|game| game.name}
+    title_names.uniq!
+    title_names_downcase = title_names.map {|game| game.downcase}
+    title_names_downcase.include? title.downcase
   end
   
   def find_games_by_title(title)
     results = @client.find_game(title)
-    results.map {|r| {:id => r.id, :name=> r.name} }
+    
+    # if we got a hit, return an array of game objects
+    if !results.empty?
+      gb_objects = Array.new
+      results.each do |r|
+        gb_objects << self.find(r.attributes["id"])
+      end
+      return gb_objects
+      # find(results.first.attributes["id"])
+    else
+      return nil
+    end
+    # map giant bomb results to local hash
+    # results.map {|r| 
+    #   {
+    #   :id => r.id,
+    #   :name=> r.name
+    #   } 
+    # }
   end
   
   def find_titles(title)
@@ -93,6 +113,8 @@ class GiantLookup
           set_love(review, match)
         else
           review.love.gb_title = "<<NO GB HIT>>"
+          review.love.ignored = 0
+          review.love.save
         end
       end
 
@@ -123,23 +145,31 @@ class GiantLookup
     nil
   end
   
-  # our percentage guess might be 50/50
+  # our percentage guess might be 50/50, so we check each one for an exact hit
   def handle_fifty_fifty(review)
     title = review.ars_title
     gb_titles = self.find_games_by_title(title)
-
-    # Do we have at least one hit from Giant Bomb?
-    if gb_titles.map{|g| g[:name].downcase}.include?(title.downcase)
-      # find a title using downcase.  if we have multiple hits, it's probably multiple platforms
-      # so just pick the first one
-      match = gb_titles.select {|hash| hash[:name].downcase == title.downcase}.first
+    
+    if gb_titles
+      # Do we have at least one hit from Giant Bomb?
+      if gb_titles.map{|g| g["name"].downcase}.include?(title.downcase)
+        # find a title using downcase.  if we have multiple hits, it's probably multiple platforms
+        # so just pick the first one
+        match = gb_titles.select {|hash| hash["name"].downcase == title.downcase}.first
+      end
     end
   end
   
   # update our love cache table
-  def set_love(review, hash)
-    review.love.gb_title = hash[:name]
-    review.love.gb_id = hash[:id]
+  def set_love(review, gb_object)
+    # we should have only one title from exact_match at this point
+    id = gb_object["id"]
+    
+    # so now look up our attributes and cache them here.
+    # TODO: this 
+    
+    review.love.gb_title = gb_object["name"]
+    review.love.gb_id = gb_object["id"]
     # TODO: cache attributes:
     # platforms
     # release date
@@ -147,6 +177,13 @@ class GiantLookup
     # publishers
     # game rating
     # description
+    review.love.platforms = gb_object["platforms"].collect{|h| h["name"]}.join(", ")
+    review.love.release_date = Date.parse(gb_object["original_release_date"]).strftime("%a, %d-%b-%Y")
+    review.love.developers = gb_object["developers"].collect{|h| h["name"]}.join(", ")
+    review.love.publishers = gb_object["publishers"].collect{|h| h["name"]}.join(", ")
+    review.love.game_rating = gb_object["original_game_rating"]
+    review.love.description = gb_object["deck"]
+    
     review.love.owned = false if review.love.owned.nil?
     review.love.ignored = false if review.love.ignored.nil?
     review.love.save

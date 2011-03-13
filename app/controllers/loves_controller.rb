@@ -1,7 +1,7 @@
 class LovesController < ApplicationController
   
   def index
-    @loves = Love.where(:ignored => false)
+    @loves = Love.where(:ignored => false).includes(:ars_titles)
     @heading = "Verdict: Buy"
   end
   
@@ -118,7 +118,7 @@ class LovesController < ApplicationController
     @love = Love.find id
     
     if !@love.gb_id.nil?
-      @gb_object = GiantLookup.new.find @love.gb_id
+      # @gb_object = GiantLookup.new.find @love.gb_id
     end
     
     # if the title is dirty and hasn't been overridden, display set me, otherwise use the custom title
