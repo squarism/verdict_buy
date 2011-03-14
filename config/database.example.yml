@@ -4,7 +4,7 @@ development:
    adapter: mysql2
    host: localhost
    database: luvars
-   user: user
+   username: user
    password: password
    pool: 5
    timeout: 5000
