@@ -54,6 +54,7 @@ class GiantLookup
   end
   
   def find_games_by_title(title)
+    title.encode("UTF-8", :invalid => :replace, :undef =>:replace, :replace => "?")
     results = @client.find_game(title)
     
     # if we got a hit, return an array of game objects
@@ -126,6 +127,8 @@ class GiantLookup
     exact_match = false
     possible_titles.each do |possible_title|
       puts "TRYING #{possible_title} for exact match"
+      
+      # TODO: self here instead of class?
       if GiantLookup.new.is_title? possible_title
         return GiantLookup.new.find_games_by_title(possible_title).first
       end

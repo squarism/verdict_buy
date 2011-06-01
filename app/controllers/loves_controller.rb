@@ -48,7 +48,7 @@ class LovesController < ApplicationController
         # than what we detected from ars.  So we want to save this title
         # to a title column in the <3 love <3 table.  Later we'll use that column
         # instead of all the automagic stuff.
-        puts params[:page]
+        puts "PARAMS PAGE: #{params[:page]}"
         
         name = params[:page]["name"]
         giant_bomb_id = params[:page]["gbid"]
@@ -63,6 +63,7 @@ class LovesController < ApplicationController
 
           # schedule update of that dude.
           ArtworkWorker.new.delay.update(@game.gb_id)
+          GiantLookup.new.delay.set_love(@game.ars_review, GiantLookup.new.find(@game.gb_id))
         
           # render nothin and snack on a muffin.
           render :text => "Updated game information in table.  Thanks."
@@ -125,7 +126,7 @@ class LovesController < ApplicationController
       if @love.title
         @default = @love.title
       else
-        @default = "Set me"
+        @default = ".."
       end
     else
       @default = @love.gb_title

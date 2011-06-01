@@ -81,7 +81,9 @@ var box_handler = function() {
 				//log(ui.item.id);
 		    return false;
 		},
-		minLength: 2,
+		minLength: 3,
+		//timeout: 5000,
+		validSelection: true,
 		
 		// when you hit enter
 		select: function( event, ui ) {
