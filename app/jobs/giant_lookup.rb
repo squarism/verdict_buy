@@ -63,17 +63,9 @@ class GiantLookup
         gb_objects << self.find(r.attributes["id"])
       end
       return gb_objects
-      # find(results.first.attributes["id"])
     else
       return nil
     end
-    # map giant bomb results to local hash
-    # results.map {|r| 
-    #   {
-    #   :id => r.id,
-    #   :name=> r.name
-    #   } 
-    # }
   end
   
   def find_titles(title)
@@ -94,9 +86,13 @@ class GiantLookup
   
   def update_love
     
-    ArsReview.all.each do |review|
+    ArsReview.with_invalid_titles.each do |review|
+    # ArsReview.all.each do |review|
       title = review.ars_title
-      puts title
+      
+      # utf-8 problem fix
+      title.encode("UTF-8", :invalid => :replace, :undef =>:replace, :replace => "?")
+      puts "TITLE: #{title}"
       
       # if a custom title is set, use that instead of the ars title
       if !review.love.title.nil?
@@ -109,22 +105,16 @@ class GiantLookup
         set_love(review, exact_match)
       else
         match = handle_fifty_fifty review
+        puts "MATCH:#{match}"
         if match
           set_love(review, match)
         else
+          puts "else"
           review.love.gb_title = "<<NO GB HIT>>"
           review.love.ignored = 0
           review.love.save
         end
       end
-
-      # 
-      #   review.love.gb_title = match[:name]
-      #   review.love.gb_id = match[:id]
-      # else
-      #   review.love.gb_title = "<<NO GB HIT>>"
-      # end
-      
       # only set to defaults if is null in DB, otherwise, it will overwrite own/ignore each run
     end
     
@@ -142,13 +132,22 @@ class GiantLookup
     end
     
     # nothing found, oh well
-    nil
+    return nil
   end
   
   # our percentage guess might be 50/50, so we check each one for an exact hit
   def handle_fifty_fifty(review)
     title = review.ars_title
     gb_titles = self.find_games_by_title(title)
+    
+    puts "GB_TITLES: #{gb_titles}"
+    if gb_titles.nil?
+      return nil
+    end
+    
+    if gb_titles.size > 2
+      raise ArgumentError
+    end
     
     if gb_titles
       # Do we have at least one hit from Giant Bomb?
@@ -164,21 +163,14 @@ class GiantLookup
   def set_love(review, gb_object)
     # we should have only one title from exact_match at this point
     id = gb_object["id"]
-    
-    # so now look up our attributes and cache them here.
-    # TODO: this 
-    
     review.love.gb_title = gb_object["name"]
     review.love.gb_id = gb_object["id"]
-    # TODO: cache attributes:
-    # platforms
-    # release date
-    # developers
-    # publishers
-    # game rating
-    # description
+
+    # cache attributes from giant_bomb, avoids web call on game detail view
     review.love.platforms = gb_object["platforms"].collect{|h| h["name"]}.join(", ")
-    review.love.release_date = Date.parse(gb_object["original_release_date"]).strftime("%a, %d-%b-%Y")
+    if !gb_object["original_release_date"].nil?
+      review.love.release_date = Date.parse(gb_object["original_release_date"]).strftime("%a, %d-%b-%Y")
+    end
     review.love.developers = gb_object["developers"].collect{|h| h["name"]}.join(", ")
     review.love.publishers = gb_object["publishers"].collect{|h| h["name"]}.join(", ")
     review.love.game_rating = gb_object["original_game_rating"]
@@ -190,7 +182,7 @@ class GiantLookup
   end
   
   def after
-    puts "after"
+    puts "after giant_lookup job"
   end
   
 end

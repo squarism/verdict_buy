@@ -23,8 +23,11 @@ class LovesController < ApplicationController
       format.json {
         search_term = params[:term]
         puts "JSON: #{search_term}"
-        @gb_titles = GiantLookup.new.find_games_by_title(search_term) #.collect{|h| h[:name]}
-        #@gb_titles = [{:id=>11439, :name=>"Herzog Zwei"}, {:id=>5048, :name=>"Herzog"}, {:id=>32818, :name=>"Herz von Afrika"}]
+        
+        # looks like this
+        # [{:id=>11439, :name=>"Herzog Zwei"}, {:id=>5048, :name=>"Herzog"}, {:id=>32818, :name=>"Herz von Afrika"}]
+        @gb_titles = GiantLookup.new.find_games_by_title(search_term)
+
         render :json => @gb_titles.to_json
       }
       
@@ -116,10 +119,6 @@ class LovesController < ApplicationController
   def show
     id = params[:id]
     @love = Love.find id
-    
-    if !@love.gb_id.nil?
-      # @gb_object = GiantLookup.new.find @love.gb_id
-    end
     
     # if the title is dirty and hasn't been overridden, display set me, otherwise use the custom title
     if @love.gb_title == "<<NO GB HIT>>"

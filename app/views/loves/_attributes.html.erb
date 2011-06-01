@@ -12,18 +12,6 @@
       Ignored:<br>
     </div>
 
-    <!-- <div class="right">
-      <%# @gb_object["platforms"].collect{|h| h["name"]}.join(", ")%><br>
-      <%# Date.parse(@gb_object["original_release_date"]).strftime("%a, %d-%b-%Y") %><br>
-      <%# @gb_object["developers"].collect{|h| h["name"]}.join(", ") %><br>
-      <%# @gb_object["publishers"].collect{|h| h["name"]}.join(", ") %><br>
-      <%# @gb_object["original_game_rating"] %><br>
-      <%# @love.gb_id %><br>
-      <%# @love.owned.nil? ? "false" : "true" %><br>
-      <%# @love.ignored.nil? ? "false" : "true" %>
-    </div> -->
-
-
     <div class="right">
       <%= @love.platforms %><br>
       <%= @love.release_date %><br>
@@ -35,9 +23,6 @@
       <%= @love.ignored.nil? ? "false" : "true" %>
     </div>
 
-    
-    
-    <br>
   </div>
   
   <div id="description">
