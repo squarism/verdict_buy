@@ -143,7 +143,7 @@ class GiantLookup
     title = review.ars_title
     gb_titles = self.find_games_by_title(title)
     
-    puts "GB_TITLES: #{gb_titles}"
+    puts "GB_TITLES: #{gb_titles.collect(&:name)}"
     if gb_titles.nil?
       return nil
     end

@@ -5,6 +5,7 @@ gem 'mysql2', '~>0.2.0'
 gem 'delayed_job', "2.1.4"
 gem 'nokogiri'
 gem 'typhoeus'
+gem 'rspec'
 
 # giant_bomb will fail with ftools error unless you get the git repo
 # git clone git://github.com/fanzter/giant_bomb.git
